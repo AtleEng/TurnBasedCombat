@@ -1,30 +1,33 @@
 using System.Numerics;
 using System.Collections.Generic;
 using Raylib_cs;
-using CoreEngine;
 
 namespace Engine
 {
     public class BasicMonster : GameEntity
     {
-        public Character character = new();
+        public Character character;
         public override void OnInnit()
         {
+            HealthComponent healthComponent = new();
+            AddComponent<HealthComponent>(healthComponent);
 
-            AttackLogic attackLogic = new AttackLogic();
-            attackLogic.spells.Add(new FireBall());
-            attackLogic.maxMana = 100;
-            attackLogic.currentMana = 100;
+            Sprite sprite = new Sprite
+            {
+                spriteSheet = Raylib.LoadTexture(@"C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\Project\Sprites\FireWizardSpriteSheet.png"),
+                spriteGrid = new Vector2(4, 1),
+                isFlipedX = true
+            };
+            AddComponent<Sprite>(sprite);
 
-            AddComponent<AttackLogic>(attackLogic);
+            Animator animator = new(sprite);
 
-            AddComponent<HealthComponent>(new HealthComponent());
+            character = new(healthComponent, animator);
+            character.spells.Add(new FireBall());
+            character.maxMana = 100;
+            character.currentMana = 100;
 
-            AddComponent<Sprite>(new Sprite());
-
-
-            transform.position.X = 5;
-            transform.size = new Vector2(8, 8);
+            AddComponent<Character>(character);
         }
     }
 }

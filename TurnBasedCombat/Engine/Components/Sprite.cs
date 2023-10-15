@@ -19,13 +19,23 @@ namespace Engine
             }
             set
             {
-                if (frameIndex >= spriteGrid.X * spriteGrid.Y || frameIndex < 0)
+                if (value > spriteGrid.X * spriteGrid.Y - 1)
                 {
                     frameIndex = 0;
                 }
-                System.Console.WriteLine(frameIndex);
+                else if (value < 0)
+                {
+                    frameIndex = (int)(spriteGrid.X * spriteGrid.Y - 1);
+                }
+                else
+                {
+                    frameIndex = value;
+                }
             }
         }
         public Color colorTint = Color.WHITE;
+
+        public bool isFlipedY;
+        public bool isFlipedX;
     }
 }

@@ -1,13 +1,16 @@
 using System.Collections.Generic;
 using System.Numerics;
+using System.IO;
 using Raylib_cs;
 using CoreEngine;
 using Engine;
+
 
 namespace CoreEngine
 {
     public static class Core
     {
+
         public static bool shouldClose;
 
         static public List<GameEntity> gameEntities = new();
@@ -21,8 +24,6 @@ namespace CoreEngine
         static float newTime = 0;
         public static void Start()
         {
-            EntityManager.SpawnEntity(new GameManager(), Vector2.Zero);
-
             AddSystem(new ScriptSystem());
             AddSystem(new SpriteSystem());
 
@@ -31,6 +32,9 @@ namespace CoreEngine
             {
                 system.Start();
             }
+            //Console.Clear();
+            EntityManager.SpawnEntity(new GameManager(), Vector2.Zero);
+
             while (shouldClose == false)
             {
                 oldTime = newTime;

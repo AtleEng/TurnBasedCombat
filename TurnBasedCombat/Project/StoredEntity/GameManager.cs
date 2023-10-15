@@ -1,7 +1,6 @@
 using System.Numerics;
 using System.Collections.Generic;
 using Raylib_cs;
-using CoreEngine;
 
 namespace Engine
 {
@@ -10,11 +9,14 @@ namespace Engine
         Player player = new();
         public override void OnInnit()
         {
-            FightManager fightManager = new();
-            fightManager.SetCharacters(player.character, new BasicMonster().character);
-            AddComponent<FightManager>(fightManager);
+            BasicMonster basicMonster = new BasicMonster();
 
-            EntityManager.SpawnEntity(new Player(), Vector2.Zero);
+            EntityManager.SpawnEntity(player, new Vector2(-2, 1));
+            EntityManager.SpawnEntity(basicMonster, new Vector2(2, 1));
+
+            FightManager fightManager = new();
+            fightManager.SetCharacters(player.character, basicMonster.character);
+            AddComponent<FightManager>(fightManager);
         }
     }
 }

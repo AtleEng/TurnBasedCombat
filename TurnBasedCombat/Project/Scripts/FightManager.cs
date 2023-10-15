@@ -11,12 +11,23 @@ namespace Engine
 
         Character player;
         Character enemy;
+
+        Sprite sprite;
         public override void Start()
         {
-            
+            sprite = player.gameEntity.GetComponent<Sprite>();
         }
         public override void Update(float delta)
         {
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_UP))
+            {
+                sprite.FrameIndex++;
+            }
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_DOWN))
+            {
+                sprite.FrameIndex--;
+            }
+            
             if (fightState == FightStates.beforeFight)
             {
                 BeforeFightUppdate();
@@ -42,7 +53,7 @@ namespace Engine
         {
             if (Raylib.IsKeyPressed(KeyboardKey.KEY_A))
             {
-                player.attackLogic.Attack(0, player, enemy);
+                player.Attack(0, player, enemy);
 
                 fightState = FightStates.enemyTurn;
             }
