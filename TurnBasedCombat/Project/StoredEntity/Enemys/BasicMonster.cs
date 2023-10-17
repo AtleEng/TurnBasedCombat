@@ -1,6 +1,7 @@
 using System.Numerics;
 using System.Collections.Generic;
 using Raylib_cs;
+using CoreAnimation;
 
 namespace Engine
 {
@@ -9,18 +10,26 @@ namespace Engine
         public Character character;
         public override void OnInnit()
         {
+            name = "Enemy";
+
             HealthComponent healthComponent = new();
             AddComponent<HealthComponent>(healthComponent);
 
             Sprite sprite = new Sprite
             {
-                spriteSheet = Raylib.LoadTexture(@"C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\Project\Sprites\FireWizardSpriteSheet.png"),
-                spriteGrid = new Vector2(4, 1),
-                isFlipedX = true
+                spriteSheet = Raylib.LoadTexture(@"C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\Project\Sprites\Wizards.png"),
+                spriteGrid = new Vector2(3, 4),
+                isFlipedX = true,
+                FrameIndex = 3
             };
             AddComponent<Sprite>(sprite);
 
-            Animator animator = new(sprite);
+            AnimatorController animator = new(sprite);
+
+            Animation attackAnimation = new(new int[] { 3, 4, 5 }, 0.2f, false);
+            animator.AddAnimation("Attack", attackAnimation);
+
+            AddComponent<AnimatorController>(animator);
 
             character = new(healthComponent, animator);
             character.spells.Add(new FireBall());

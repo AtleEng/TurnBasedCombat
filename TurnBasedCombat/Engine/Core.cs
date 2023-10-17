@@ -4,6 +4,7 @@ using System.IO;
 using Raylib_cs;
 using CoreEngine;
 using Engine;
+using CoreAnimation;
 
 
 namespace CoreEngine
@@ -25,6 +26,7 @@ namespace CoreEngine
         public static void Start()
         {
             AddSystem(new ScriptSystem());
+            AddSystem(new AnimationSystem());
             AddSystem(new SpriteSystem());
 
             // Innit all the systems in the right order

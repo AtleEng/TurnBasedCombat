@@ -7,8 +7,8 @@ namespace Engine
 {
     public class HealthComponent : Component, IScript
     {
-        public int currentHealth;
-        public int maxHealth;
+        public int currentHealth = 10;
+        public int maxHealth = 10;
 
         public void TakeDMG(int dmg, HealthComponent attacker)
         {

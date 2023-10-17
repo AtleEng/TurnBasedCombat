@@ -11,23 +11,18 @@ namespace Engine
 
         Character player;
         Character enemy;
+        public FightManager(Character player, Character enemy)
+        {
+            this.player = player;
+            this.enemy = enemy;
+        }
 
-        Sprite sprite;
         public override void Start()
         {
-            sprite = player.gameEntity.GetComponent<Sprite>();
+
         }
         public override void Update(float delta)
         {
-            if (Raylib.IsKeyPressed(KeyboardKey.KEY_UP))
-            {
-                sprite.FrameIndex++;
-            }
-            if (Raylib.IsKeyPressed(KeyboardKey.KEY_DOWN))
-            {
-                sprite.FrameIndex--;
-            }
-            
             if (fightState == FightStates.beforeFight)
             {
                 BeforeFightUppdate();
@@ -40,9 +35,13 @@ namespace Engine
             {
                 EnemyTurnUppdate();
             }
-            else if (fightState == FightStates.endOfFight)
+            else if (fightState == FightStates.wonFight)
             {
-                EndOfFightUppdate();
+                WinFightUppdate();
+            }
+            else if (fightState == FightStates.loseFight)
+            {
+                LoseFightUppdate();
             }
         }
         void BeforeFightUppdate()
@@ -51,31 +50,65 @@ namespace Engine
         }
         void PlayerTurnUppdate()
         {
-            if (Raylib.IsKeyPressed(KeyboardKey.KEY_A))
+            if (player.healthComponent.currentHealth <= 0)
             {
-                player.Attack(0, player, enemy);
-
-                fightState = FightStates.enemyTurn;
+                fightState = FightStates.loseFight;
+                return;
             }
-
+            if (!player.hasAttacked)
+            {
+                if (Raylib.IsKeyPressed(KeyboardKey.KEY_A))
+                {
+                    player.Attack(0, enemy, player);
+                    player.animator.PlayAnimation("Attack");
+                    player.hasAttacked = true;
+                }
+            }
+            else
+            {
+                if (!player.animator.isPlaying)
+                {
+                    fightState = FightStates.enemyTurn;
+                    enemy.hasAttacked = false;
+                }
+            }
         }
         void EnemyTurnUppdate()
         {
-            System.Console.WriteLine("Enemy");
-        }
-        void EndOfFightUppdate()
-        {
+            if (enemy.healthComponent.currentHealth <= 0)
+            {
+                fightState = FightStates.wonFight;
+                return;
+            }
+            if (!enemy.hasAttacked)
+            {
+                System.Console.WriteLine("EnemyTurn:");
 
-        }
+                enemy.Attack(0, player, enemy);
+                enemy.animator.PlayAnimation("Attack");
+                enemy.hasAttacked = true;
 
-        public void SetCharacters(Character player, Character enemy)
+            }
+            else
+            {
+                if (!enemy.animator.isPlaying)
+                {
+                    fightState = FightStates.playerTurn;
+                    player.hasAttacked = false;
+                }
+            }
+        }
+        void WinFightUppdate()
         {
-            this.player = player;
-            this.enemy = enemy;
+            System.Console.WriteLine("Won");
+        }
+        void LoseFightUppdate()
+        {
+            System.Console.WriteLine("Lost");
         }
         public enum FightStates
         {
-            beforeFight, playerTurn, enemyTurn, endOfFight
+            beforeFight, playerTurn, enemyTurn, wonFight, loseFight
         }
     }
 }

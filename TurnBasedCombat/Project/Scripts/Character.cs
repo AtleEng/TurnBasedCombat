@@ -2,19 +2,23 @@ using System.Numerics;
 using System.Collections.Generic;
 using Raylib_cs;
 using CoreEngine;
+using CoreAnimation;
 
 namespace Engine
 {
     public class Character : Component, IScript
     {
         public HealthComponent healthComponent;
-        public Animator animator;
+        public AnimatorController animator;
+
+        public bool hasAttacked;
+
         public int currentMana; //mana to use
         public int maxMana; //max amount of mana
 
         public List<Spell> spells = new(); //all the spells
 
-        public Character(HealthComponent healthComponent, Animator animator)
+        public Character(HealthComponent healthComponent, AnimatorController animator)
         {
             this.healthComponent = healthComponent;
             this.animator = animator;

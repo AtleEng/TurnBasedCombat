@@ -26,7 +26,7 @@ namespace CoreEngine
             Raylib.InitWindow(WindowSettings.startWindowWidth, WindowSettings.startWindowHeight, "Game Window");
             Raylib.SetWindowMinSize(400, 300);
 
-            Raylib.SetTargetFPS(60);
+            Raylib.SetTargetFPS(10);
 
             Raylib.SetExitKey(KeyboardKey.KEY_NULL);
 

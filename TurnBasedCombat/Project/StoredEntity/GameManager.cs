@@ -9,13 +9,15 @@ namespace Engine
         Player player = new();
         public override void OnInnit()
         {
+            name = "GameManager";
+
             BasicMonster basicMonster = new BasicMonster();
 
             EntityManager.SpawnEntity(player, new Vector2(-2, 1));
+
             EntityManager.SpawnEntity(basicMonster, new Vector2(2, 1));
 
-            FightManager fightManager = new();
-            fightManager.SetCharacters(player.character, basicMonster.character);
+            FightManager fightManager = new(player.character, basicMonster.character);
             AddComponent<FightManager>(fightManager);
         }
     }

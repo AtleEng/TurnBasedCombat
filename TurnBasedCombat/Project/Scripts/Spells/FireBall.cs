@@ -7,7 +7,7 @@ namespace Engine
 {
     public class FireBall : Spell
     {
-        int dmg = 10;
+        int dmg = 2;
         public override void OnUse(Character user, Character target)
         {
             target.healthComponent.TakeDMG(dmg, user.healthComponent);
