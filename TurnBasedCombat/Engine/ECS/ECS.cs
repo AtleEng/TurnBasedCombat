@@ -18,6 +18,9 @@ namespace Engine
         public string name = "GameEntity";
         public Transform transform = new(Vector2.Zero, Vector2.One);
         public Dictionary<Type, Component> components = new();
+
+        public GameEntity? parent;
+        public List<GameEntity> children = new();
         public virtual void OnInnit()
         {
 

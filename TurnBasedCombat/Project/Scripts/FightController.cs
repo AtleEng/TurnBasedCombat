@@ -5,13 +5,14 @@ using CoreEngine;
 
 namespace Engine
 {
-    public class FightManager : Component, IScript
+    public class FightController : Component, IScript
     {
         FightStates fightState = FightStates.beforeFight;
 
         Character player;
         Character enemy;
-        public FightManager(Character player, Character enemy)
+
+        public FightController(Character player, Character enemy)
         {
             this.player = player;
             this.enemy = enemy;

@@ -8,7 +8,7 @@ namespace Engine
 {
     public static class WorldSpace
     {
-        public static int pixelsPerUnit = 150;
+        public static int pixelsPerUnit = 80;
         static SpriteSystem RenderSystem => (SpriteSystem)Core.systems[typeof(SpriteSystem)];
         public static Vector2 GetVirtualMousePos() // Uppdatera virtuella musen (låst till spelfönstret)
         {
@@ -62,8 +62,8 @@ namespace Engine
         readonly public static int startWindowWidth = 800;
         readonly public static int startWindowHeight = 450;
 
-        public static int gameScreenWidth = 1200;
-        public static int gameScreenHeight = 900;
+        public static int gameScreenWidth = 1120;
+        public static int gameScreenHeight = 800;
     }
     public static class Camera
     {

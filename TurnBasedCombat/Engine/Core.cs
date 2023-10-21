@@ -61,6 +61,10 @@ namespace CoreEngine
             }
             foreach (var entity in entitiesToRemove)
             {
+                if (entity.parent != null)
+                {
+                    entity.parent.children.Remove(entity);
+                }
                 gameEntities.Remove(entity);
             }
             //clear the lists

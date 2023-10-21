@@ -26,7 +26,7 @@ namespace CoreEngine
             Raylib.InitWindow(WindowSettings.startWindowWidth, WindowSettings.startWindowHeight, "Game Window");
             Raylib.SetWindowMinSize(400, 300);
 
-            Raylib.SetTargetFPS(10);
+            Raylib.SetTargetFPS(30);
 
             Raylib.SetExitKey(KeyboardKey.KEY_NULL);
 
@@ -48,7 +48,7 @@ namespace CoreEngine
             Raylib.EndTextureMode();
 
             Raylib.BeginDrawing();
-            Raylib.ClearBackground(Color.BLACK);
+            Raylib.ClearBackground(new Color(69, 43, 63, 255));
 
             Raylib.DrawTexturePro(target.texture,
     new Rectangle(0.0f, 0.0f, (float)target.texture.width, (float)-target.texture.height),
