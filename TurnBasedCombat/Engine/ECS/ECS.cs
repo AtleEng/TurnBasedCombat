@@ -12,11 +12,14 @@ namespace Engine
         public virtual void Update(float delta) { }
         public virtual void OnDestroy() { }
         public virtual void OnTrigger() { }
+
+        public virtual string PrintStats() { return "null"; }
     }
     public class GameEntity
     {
         public string name = "GameEntity";
-        public Transform transform = new(Vector2.Zero, Vector2.One);
+        public Transform worldTransform = new(Vector2.Zero, Vector2.One);
+        public Transform localTransform = new(Vector2.Zero, Vector2.One);
         public Dictionary<Type, Component> components = new();
 
         public GameEntity? parent;
@@ -24,6 +27,10 @@ namespace Engine
         public virtual void OnInnit()
         {
 
+        }
+        public string PrintStats()
+        {
+            return $"Position: {worldTransform.position}, Size: {worldTransform.size}";
         }
 
         public bool HasComponent<T>()

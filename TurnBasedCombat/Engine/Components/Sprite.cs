@@ -34,8 +34,13 @@ namespace Engine
             }
         }
         public Color colorTint = Color.WHITE;
-
+        public int layer;
         public bool isFlipedY;
         public bool isFlipedX;
+
+        public override string PrintStats()
+        {
+            return $"SpriteGrid: {spriteGrid}, FrameIndex: {frameIndex}, ColorTint: {colorTint}, isFlipedX: {isFlipedX}, isFlipedY: {isFlipedY}";
+        }
     }
 }

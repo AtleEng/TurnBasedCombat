@@ -11,7 +11,7 @@ namespace CoreEngine
 {
     public static class Core
     {
-
+        public static GameEntity currentScene = new Scene();
         public static bool shouldClose;
 
         static public List<GameEntity> gameEntities = new();
@@ -35,7 +35,7 @@ namespace CoreEngine
                 system.Start();
             }
             //Console.Clear();
-            EntityManager.SpawnEntity(new GameManager(), Vector2.Zero);
+            currentScene.OnInnit();
 
             while (shouldClose == false)
             {
@@ -54,6 +54,8 @@ namespace CoreEngine
                 system.Update(delta);
             }
 
+            UppdateChildren(currentScene);
+
             // Add and remove games entities
             foreach (var entity in entitiesToAdd)
             {
@@ -70,6 +72,22 @@ namespace CoreEngine
             //clear the lists
             entitiesToAdd.Clear();
             entitiesToRemove.Clear();
+            if (Raylib.IsKeyDown(KeyboardKey.KEY_F3))
+            {
+                Console.Clear();
+                PrintEntityTree(currentScene, "", "");
+            }
+        }
+
+        public static void UppdateChildren(GameEntity parent)
+        {
+            foreach (var child in parent.children)
+            {
+                child.worldTransform.position = child.localTransform.position + parent.worldTransform.position;
+                child.worldTransform.size = child.localTransform.size * parent.worldTransform.size;
+
+                UppdateChildren(child);
+            }
         }
 
         public static void AddSystem<T>(T system) where T : GameSystem
@@ -79,6 +97,42 @@ namespace CoreEngine
         public static void RemoveSystem<T>() where T : GameSystem
         {
             systems.Remove(typeof(T));
+        }
+
+        public static void PrintEntityTree(GameEntity entity, string layer = "", string space = "")
+        {
+            Console.WriteLine($"{space}{layer}{entity.name} [{entity.PrintStats()}]");
+
+            // Components
+            if (entity.components.Count > 0)
+            {
+                foreach (Component component in entity.components.Values)
+                {
+                    Console.WriteLine($"   {space}{component.GetType().Name} [{component.PrintStats()}]");
+                }
+            }
+            // Entities
+            if (entity.children.Count > 0)
+            {
+                foreach (var child in entity.children)
+                {
+                    PrintEntityTree(child, $"{layer}>", $"{space} ");
+                }
+
+            }
+        }
+    }
+}
+
+namespace Engine
+{
+    public class Scene : GameEntity
+    {
+        public override void OnInnit()
+        {
+            name = "Scene";
+
+            EntityManager.SpawnEntity(new GameManager(), Vector2.Zero);
         }
     }
 }

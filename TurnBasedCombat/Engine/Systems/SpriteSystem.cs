@@ -70,53 +70,56 @@ namespace CoreEngine
         }
         void RenderAll()
         {
-            DisplayGrid();
-            //render all entities's spriteRenderers
+            List<Sprite> allSprites = new();
+
             foreach (GameEntity gameEntity in Core.gameEntities)
             {
-
                 Sprite? spriteComponent = gameEntity.components.ContainsKey(typeof(Sprite)) ? gameEntity.components[typeof(Sprite)] as Sprite : null;
-                if (spriteComponent != null)
-                {
-                    Vector2 p = WorldSpace.ConvertToCameraPosition(gameEntity.transform.position);
-                    Vector2 s = WorldSpace.ConvertToCameraSize(gameEntity.transform.size);
+                if (spriteComponent != null) { allSprites.Add(spriteComponent); }
+            }
+            allSprites.Sort((a, b) => a.layer.CompareTo(b.layer));
 
-                    Rectangle destRec = new Rectangle(
-                    (int)p.X - (int)(s.X / 2), (int)p.Y - (int)(s.Y / 2), //pos
-                    (int)s.X, (int)s.Y //size
+            foreach (Sprite sprite in allSprites)
+            {
+                Vector2 p = WorldSpace.ConvertToCameraPosition(sprite.gameEntity.worldTransform.position);
+                Vector2 s = WorldSpace.ConvertToCameraSize(sprite.gameEntity.worldTransform.size);
+
+                Rectangle destRec = new Rectangle(
+                (int)p.X - (int)(s.X / 2), (int)p.Y - (int)(s.Y / 2), //pos
+                (int)s.X, (int)s.Y //size
+                );
+
+                //Raylib.DrawRectangleRec(destRec, new Color(255, 255, 255, 100));
+
+                if (sprite.spriteSheet.id != 0)
+                {
+                    int flipX = sprite.isFlipedX ? -1 : 1;
+                    int flipY = sprite.isFlipedY ? -1 : 1;
+
+                    int i = sprite.FrameIndex;
+
+                    int x = (int)sprite.spriteGrid.X;
+                    int y = (int)sprite.spriteGrid.Y;
+
+                    float gridSizeX = sprite.spriteSheet.width / x;
+                    float gridSizeY = sprite.spriteSheet.height / y;
+
+                    int posX = i % x;
+                    int posY = i / x;
+
+                    Rectangle source = new Rectangle(
+                        (int)(posX * gridSizeX),
+                        (int)(posY * gridSizeY),
+                        sprite.spriteSheet.width * flipX / sprite.spriteGrid.X,
+                    sprite.spriteSheet.height * flipY / sprite.spriteGrid.Y
                     );
 
-                    Raylib.DrawRectangleRec(destRec, new Color(255, 255, 255, 100));
-
-                    if (spriteComponent.spriteSheet.id != 0)
-                    {
-                        int flipX = spriteComponent.isFlipedX ? -1 : 1;
-                        int flipY = spriteComponent.isFlipedY ? -1 : 1;
-
-                        int i = spriteComponent.FrameIndex;
-
-                        int x = (int)spriteComponent.spriteGrid.X;
-                        int y = (int)spriteComponent.spriteGrid.Y;
-
-                        float gridSizeX = spriteComponent.spriteSheet.width / x;
-                        float gridSizeY = spriteComponent.spriteSheet.height / y;
-
-                        int posX = i % x;
-                        int posY = i / x;
-
-                        Rectangle source = new Rectangle(
-                            (int)(posX * gridSizeX),
-                            (int)(posY * gridSizeY),
-                            spriteComponent.spriteSheet.width * flipX / spriteComponent.spriteGrid.X,
-                            spriteComponent.spriteSheet.height * flipY / spriteComponent.spriteGrid.Y
-                        );
-
-                        Raylib.DrawTexturePro(spriteComponent.spriteSheet, source, destRec, Vector2.Zero, 0, spriteComponent.colorTint);
-                    }
-                    Raylib.DrawCircle((int)p.X, (int)p.Y, 5, Color.RED);
+                    Raylib.DrawTexturePro(sprite.spriteSheet, source, destRec, Vector2.Zero, 0, sprite.colorTint);
                 }
-                Raylib.DrawText($"GameEntitys:{Core.gameEntities.Count}\nFPS:{Raylib.GetFPS()}", 20, 20, 20, Color.RAYWHITE);
+                Raylib.DrawCircle((int)p.X, (int)p.Y, 5, Color.RED);
             }
+            DisplayGrid();
+            Raylib.DrawText($"GameEntitys:{Core.gameEntities.Count}\nFPS:{Raylib.GetFPS()}", 20, 20, 20, Color.RAYWHITE);
         }
         void SetValuesOfWindow()
         {

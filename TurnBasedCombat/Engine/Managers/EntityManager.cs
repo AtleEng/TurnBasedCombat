@@ -10,17 +10,21 @@ namespace Engine
     {
         public static void SpawnEntity(GameEntity entity) { SpawnEntity(entity, Vector2.Zero); }
         public static void SpawnEntity(GameEntity entity, Vector2 position) { SpawnEntity(entity, position, Vector2.One); }
-        public static void SpawnEntity(GameEntity entity, Vector2 position, Vector2 size) { SpawnEntity(entity, position, Vector2.One, null); }
+        public static void SpawnEntity(GameEntity entity, Vector2 position, Vector2 size) { SpawnEntity(entity, position, size, null); }
         public static void SpawnEntity(GameEntity entity, Vector2 position, Vector2 size, GameEntity parent)
         {
-            entity.transform.position = position;
-            entity.transform.size = size;
+            entity.localTransform.position = position;
+            entity.localTransform.size = size;
 
             if (parent != null)
             {
                 entity.parent = parent;
-                parent.children.Add(entity);
             }
+            else
+            {
+                entity.parent = Core.currentScene;
+            }
+            entity.parent.children.Add(entity);
 
             entity.OnInnit();
             foreach (Component component in entity.components.Values)

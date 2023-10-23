@@ -39,6 +39,15 @@ namespace CoreAnimation
             }
             else { System.Console.WriteLine($"Animation {name} doesn't exist!!!"); }
         }
+        public override string PrintStats()
+        {
+            string animationsText = "";
+            foreach (string t in animations.Keys)
+            {
+                animationsText += $"{t},";
+            }
+            return $"Animations <{animationsText}>, CurrentAnimation: {currentAnimation}, IsPlaying{isPlaying}";
+        }
     }
     public class Animation
     {
