@@ -8,7 +8,7 @@ namespace CoreAnimation
     {
         public override void Update(float delta)
         {
-            foreach (GameEntity gameEntity in Core.gameEntities)
+            foreach (GameEntity gameEntity in Core.activeGameEntities)
             {
                 AnimatorController? animator = gameEntity.components.ContainsKey(typeof(AnimatorController)) ? gameEntity.components[typeof(AnimatorController)] as AnimatorController : null;
                 if (animator != null)

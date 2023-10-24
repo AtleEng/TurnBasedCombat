@@ -11,6 +11,7 @@ namespace Engine
             name = "UI";
 
             GameEntity background = new();
+            background.name = "TheBackground";
             Sprite backgroundSprite = new()
             {
                 spriteSheet = Raylib.LoadTexture(@"Project\Sprites\UIFrame.png"),
@@ -19,7 +20,10 @@ namespace Engine
             background.AddComponent<Sprite>(backgroundSprite);
             EntityManager.SpawnEntity(background, Vector2.Zero, new Vector2(14, 10), this);
 
-            GameEntity uiFrame = new();
+            GameEntity uiFrame = new()
+            {
+                name = "UIFrame"
+            };
             Sprite frameSprite = new()
             {
                 spriteSheet = Raylib.LoadTexture(@"Project\Sprites\background.png"),

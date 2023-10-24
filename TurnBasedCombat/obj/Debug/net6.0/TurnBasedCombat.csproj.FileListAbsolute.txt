@@ -24,7 +24,6 @@ C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\De
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\Effects\Effect.cs
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\FightController.cs
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\HealthComponent.cs
-C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\Spells\FireBall.cs
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\Spells\Spell.cs
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Sprites\background.png
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Sprites\Cards1.png
@@ -39,3 +38,5 @@ C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\De
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\GameManager.cs
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\Player.cs
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\UI.cs
+C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\CardComponent.cs
+C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\Card.cs

@@ -15,6 +15,8 @@ namespace CoreEngine
         public static bool shouldClose;
 
         static public List<GameEntity> gameEntities = new();
+        static public List<GameEntity> activeGameEntities = new();
+
         static public Dictionary<Type, GameSystem> systems = new();
 
         static public List<GameEntity> entitiesToAdd = new();
@@ -48,6 +50,14 @@ namespace CoreEngine
         }
         static void Update(float delta)
         {
+            activeGameEntities.Clear();
+            foreach (GameEntity gameEntity in gameEntities)
+            {
+                if (gameEntity.isActive == true)
+                {
+                    activeGameEntities.Add(gameEntity);
+                }
+            }
             // Uppdate all the systems in the right order
             foreach (var system in systems.Values)
             {

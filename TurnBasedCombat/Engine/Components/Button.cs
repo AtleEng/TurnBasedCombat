@@ -6,8 +6,9 @@ using Engine;
 
 namespace Engine
 {
-    public class Button : Component
+    public class Button : Component, IScript
     {
+        
         
     }
 }

@@ -8,7 +8,7 @@ namespace CoreEngine
     {
         public override void Start()
         {
-            foreach (GameEntity gameEntity in Core.gameEntities)
+            foreach (GameEntity gameEntity in Core.activeGameEntities)
             {
                 foreach (Component component in gameEntity.components.Values)
                 {

@@ -9,13 +9,18 @@ namespace Engine
     {
         public int currentHealth = 10;
         public int maxHealth = 10;
+        public int currentShield = 0;
         public override string PrintStats()
         {
-            return $"CurrentHealth: {currentHealth}, MaxHealth: {maxHealth}";
+            return $"Health: {currentHealth}/{maxHealth} Shield: {currentShield}";
         }
         public void TakeDMG(int dmg, HealthComponent attacker)
         {
-            currentHealth -= dmg;
+            currentShield -= dmg;
+            if (currentShield < 0)
+            {
+                currentHealth += currentShield;
+            }
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
@@ -28,6 +33,14 @@ namespace Engine
             if (currentHealth > maxHealth)
             {
                 currentHealth = maxHealth;
+            }
+        }
+        public void AddShield(int shieldAmount)
+        {
+            currentShield += shieldAmount;
+            if (currentShield > maxHealth)
+            {
+                currentShield = maxHealth;
             }
         }
         public void Die(HealthComponent killer)

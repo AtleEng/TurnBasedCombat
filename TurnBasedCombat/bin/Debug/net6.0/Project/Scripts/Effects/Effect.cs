@@ -7,7 +7,8 @@ namespace Engine
 {
     public abstract class Effect
     {
-        public int duration = 0;
+        public Character effectedCharacter;
+        public int level = 0; //remove one level every turn
         public virtual void OnStartOfTurn()
         {
 

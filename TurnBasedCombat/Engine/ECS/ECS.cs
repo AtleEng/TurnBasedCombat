@@ -18,6 +18,8 @@ namespace Engine
     public class GameEntity
     {
         public string name = "GameEntity";
+
+        public bool isActive = true;
         public Transform worldTransform = new(Vector2.Zero, Vector2.One);
         public Transform localTransform = new(Vector2.Zero, Vector2.One);
         public Dictionary<Type, Component> components = new();
@@ -30,7 +32,7 @@ namespace Engine
         }
         public string PrintStats()
         {
-            return $"Position: {worldTransform.position}, Size: {worldTransform.size}";
+            return $"IsActive: {isActive} Position: {worldTransform.position}, Size: {worldTransform.size}";
         }
 
         public bool HasComponent<T>()

@@ -40,7 +40,7 @@ namespace Engine
 
         public override string PrintStats()
         {
-            return $"SpriteGrid: {spriteGrid}, FrameIndex: {frameIndex}, ColorTint: {colorTint}, isFlipedX: {isFlipedX}, isFlipedY: {isFlipedY}";
+            return $"SpriteGrid: {spriteGrid} FrameIndex: {frameIndex} Layer: {layer}";
         }
     }
 }

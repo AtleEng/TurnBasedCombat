@@ -5,9 +5,20 @@ using CoreEngine;
 
 namespace Engine
 {
-    public abstract class Spell
+    public class Spell
     {
-        int manaCost;
-        public virtual void OnUse(Character user, Character target) { }
+        public int manaCost;
+        public int healthCost;
+        public int shieldCost;
+        public Effect? effectCost;
+
+        public int manaApply;
+        public int dmgApply;
+        public int shieldApply;
+        public Effect? effectApply;
+        public virtual void OnUse(Character user, Character target)
+        {
+            target.healthComponent.TakeDMG(1, user.healthComponent);
+        }
     }
 }

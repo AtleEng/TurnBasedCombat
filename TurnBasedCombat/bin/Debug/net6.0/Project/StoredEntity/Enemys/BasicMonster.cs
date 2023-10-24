@@ -32,9 +32,6 @@ namespace Engine
             AddComponent<AnimatorController>(animator);
 
             character = new(healthComponent, animator);
-            character.spells.Add(new FireBall());
-            character.maxMana = 100;
-            character.currentMana = 100;
 
             AddComponent<Character>(character);
         }

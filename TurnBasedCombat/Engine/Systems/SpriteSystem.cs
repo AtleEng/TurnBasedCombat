@@ -72,7 +72,7 @@ namespace CoreEngine
         {
             List<Sprite> allSprites = new();
 
-            foreach (GameEntity gameEntity in Core.gameEntities)
+            foreach (GameEntity gameEntity in Core.activeGameEntities)
             {
                 Sprite? spriteComponent = gameEntity.components.ContainsKey(typeof(Sprite)) ? gameEntity.components[typeof(Sprite)] as Sprite : null;
                 if (spriteComponent != null) { allSprites.Add(spriteComponent); }

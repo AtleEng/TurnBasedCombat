@@ -44,9 +44,9 @@ namespace CoreAnimation
             string animationsText = "";
             foreach (string t in animations.Keys)
             {
-                animationsText += $"{t},";
+                animationsText += $"{t} ";
             }
-            return $"Animations <{animationsText}>, CurrentAnimation: {currentAnimation}, IsPlaying{isPlaying}";
+            return $"Animations < {animationsText}> CurrentAnimation: {currentAnimation} IsPlaying{isPlaying}";
         }
     }
     public class Animation

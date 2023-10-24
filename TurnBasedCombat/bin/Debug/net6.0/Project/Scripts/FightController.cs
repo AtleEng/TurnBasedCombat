@@ -60,7 +60,7 @@ namespace Engine
             {
                 if (Raylib.IsKeyPressed(KeyboardKey.KEY_A))
                 {
-                    player.Attack(0, enemy, player);
+                    //player.Attack(0, enemy, player);
                     player.animator.PlayAnimation("Attack");
                     player.hasAttacked = true;
                 }
@@ -85,7 +85,7 @@ namespace Engine
             {
                 System.Console.WriteLine("EnemyTurn:");
 
-                enemy.Attack(0, player, enemy);
+                //enemy.Attack(0, player, enemy);
                 enemy.animator.PlayAnimation("Attack");
                 enemy.hasAttacked = true;
 

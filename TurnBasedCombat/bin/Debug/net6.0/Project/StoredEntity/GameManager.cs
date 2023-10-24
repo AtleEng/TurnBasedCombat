@@ -20,6 +20,8 @@ namespace Engine
 
             FightController fightController = new(player.character, basicMonster.character);
             AddComponent<FightController>(fightController);
+
+            EntityManager.SpawnEntity(new Card());
         }
     }
 }
