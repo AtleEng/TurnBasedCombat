@@ -15,7 +15,7 @@ namespace Engine
             Sprite backgroundSprite = new()
             {
                 spriteSheet = Raylib.LoadTexture(@"Project\Sprites\UIFrame.png"),
-                layer = 10
+                layer = 5
             };
             background.AddComponent<Sprite>(backgroundSprite);
             EntityManager.SpawnEntity(background, Vector2.Zero, new Vector2(14, 10), this);

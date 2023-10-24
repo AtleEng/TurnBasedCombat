@@ -84,7 +84,7 @@ namespace CoreEngine
             entitiesToRemove.Clear();
             if (Raylib.IsKeyDown(KeyboardKey.KEY_F3))
             {
-                Console.Clear();
+                //Console.Clear();
                 PrintEntityTree(currentScene, "", "");
             }
         }

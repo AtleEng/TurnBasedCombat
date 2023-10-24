@@ -7,18 +7,22 @@ namespace Engine
 {
     public class Card : GameEntity
     {
+        public CardStats cardStats;
+        public Card(CardStats cardStats)
+        {
+            this.cardStats = cardStats;
+        }
         public override void OnInnit()
         {
-            name = "Card";
-
-            CardComponent cardComponent = new();
-            AddComponent<CardComponent>(cardComponent);
+            name = "Card-" + cardStats.nameOfCard;
+            localTransform.size = new Vector2(2,2);
 
             Sprite sprite = new Sprite
             {
                 spriteSheet = Raylib.LoadTexture(@"Project\Sprites\Cards1.png"),
                 spriteGrid = new Vector2(3, 9),
-                FrameIndex = 3
+                FrameIndex = cardStats.cardSpriteIndex,
+                layer = 10
             };
             AddComponent<Sprite>(sprite);
         }

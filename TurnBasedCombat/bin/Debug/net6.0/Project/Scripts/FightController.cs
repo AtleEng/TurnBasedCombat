@@ -60,6 +60,7 @@ namespace Engine
             {
                 if (Raylib.IsKeyPressed(KeyboardKey.KEY_A))
                 {
+                    
                     //player.Attack(0, enemy, player);
                     player.animator.PlayAnimation("Attack");
                     player.hasAttacked = true;

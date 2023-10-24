@@ -15,12 +15,14 @@ namespace Engine
         public override void OnInnit()
         {
             name = "Card-" + cardStats.nameOfCard;
+            localTransform.size = new Vector2(2,2);
 
             Sprite sprite = new Sprite
             {
                 spriteSheet = Raylib.LoadTexture(@"Project\Sprites\Cards1.png"),
                 spriteGrid = new Vector2(3, 9),
-                FrameIndex = cardStats.cardSpriteIndex
+                FrameIndex = cardStats.cardSpriteIndex,
+                layer = 10
             };
             AddComponent<Sprite>(sprite);
         }
