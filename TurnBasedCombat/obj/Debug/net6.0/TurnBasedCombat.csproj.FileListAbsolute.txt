@@ -43,9 +43,6 @@ C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\De
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\TurnBasedCombat.exe
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\CardLogic\CardManager.cs
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\CardLogic\CardStats.cs
-c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\Character.cs
-c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\Effects\Effect.cs
-c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\FightController.cs
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\HealthComponent.cs
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Sprites\background.png
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Sprites\Cards1.png
@@ -55,12 +52,6 @@ c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\De
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Sprites\textbase.png
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Sprites\UIFrame.png
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Sprites\units.png
-c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\Card.cs
-c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\CharacterStats.cs
-c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\Enemys\BasicMonster.cs
-c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\GameManager.cs
-c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\Player.cs
-c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\UI.cs
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\TurnBasedCombat.deps.json
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\TurnBasedCombat.runtimeconfig.json
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\TurnBasedCombat.dll
@@ -83,3 +74,11 @@ c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\obj\De
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\obj\Debug\net6.0\TurnBasedCombat.genruntimeconfig.cache
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\obj\Debug\net6.0\ref\TurnBasedCombat.dll
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\CardLogic\CardComponent.cs
+c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\Effect.cs
+c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\Card_SE.cs
+c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\Enemy_SE.cs
+c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\GameManager_SE.cs
+c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\Player_SE.cs
+c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\UI_SE.cs
+c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\ManaBarLogic.cs
+c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\ManaComponent.cs

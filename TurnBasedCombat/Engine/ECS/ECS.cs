@@ -13,7 +13,7 @@ namespace Engine
         public virtual void OnDestroy() { }
         public virtual void OnTrigger() { }
 
-        public virtual string PrintStats() { return "null"; }
+        public virtual string PrintStats() { return ""; }
     }
     public class GameEntity
     {
@@ -32,7 +32,7 @@ namespace Engine
         }
         public string PrintStats()
         {
-            return $"IsActive: {isActive} Position: {worldTransform.position}, Size: {worldTransform.size}";
+            return $"IsActive:{isActive} Position:{worldTransform.position} Size:{worldTransform.size}";
         }
 
         public bool HasComponent<T>()

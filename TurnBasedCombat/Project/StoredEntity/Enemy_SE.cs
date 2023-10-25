@@ -5,9 +5,8 @@ using CoreAnimation;
 
 namespace Engine
 {
-    public class BasicMonster : GameEntity
+    public class Enemy : GameEntity
     {
-        public Character character;
         public override void OnInnit()
         {
             name = "Enemy";
@@ -30,10 +29,6 @@ namespace Engine
             animator.AddAnimation("Attack", attackAnimation);
 
             AddComponent<AnimatorController>(animator);
-
-            character = new(healthComponent, animator);
-
-            AddComponent<Character>(character);
         }
     }
 }

@@ -7,13 +7,24 @@ namespace Engine
 {
     public class Player : GameEntity
     {
-        public Character character;
+        public HealthComponent healthComponent;
+        public ManaComponent manaComponent;
+        public AnimatorController animator;
         public override void OnInnit()
         {
             name = "Player";
 
+            GameEntity manaBar = new();
+            manaBar.AddComponent<ManaBarLogic>(new ManaBarLogic());
+
+            EntityManager.SpawnEntity(manaBar, Vector2.Zero, Vector2.One, null);
+
+            ManaComponent manaComponent = new ManaComponent(manaBar.GetComponent<ManaBarLogic>());
+            AddComponent<ManaComponent>(manaComponent);
+
             HealthComponent healthComponent = new();
             AddComponent<HealthComponent>(healthComponent);
+            
 
             Sprite sprite = new Sprite
             {
@@ -29,10 +40,7 @@ namespace Engine
             animator.AddAnimation("Attack", attackAnimation);
 
             AddComponent<AnimatorController>(animator);
-
-            character = new(healthComponent, animator);
-
-            AddComponent<Character>(character);
+            
         }
     }
 }

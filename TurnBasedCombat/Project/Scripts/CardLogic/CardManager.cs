@@ -7,6 +7,7 @@ namespace Engine
 {
     public class CardManager : Component, IScript
     {
+        public Player player;
         public Dictionary<string, CardStats> allCards = new();
         List<CardStats> cardsInDrawpile = new();
         List<CardStats> cardsInDiscardPile = new();
@@ -84,6 +85,8 @@ namespace Engine
                     if (Raylib.IsMouseButtonDown(0))
                     {
                         selectedCard = i;
+                        cardsInHand[i].cardComponent.OnUseCard();
+                        DiscardCard(i);
                     }
                 }
             }
@@ -120,6 +123,7 @@ namespace Engine
                 Card card = new Card
                 {
                     isActive = false
+                    
                 };
                 cardsInHand.Add(card);
                 EntityManager.SpawnEntity(card, cardPositions[i], Vector2.One, cardHolder);

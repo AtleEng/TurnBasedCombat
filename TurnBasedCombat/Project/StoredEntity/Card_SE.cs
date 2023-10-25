@@ -8,6 +8,7 @@ namespace Engine
     public class Card : GameEntity
     {
         public CardComponent cardComponent;
+        public Player player;
         public override void OnInnit()
         {
 
@@ -22,7 +23,7 @@ namespace Engine
             };
             AddComponent<Sprite>(sprite);
 
-            cardComponent = new(sprite);
+            cardComponent = new(sprite, player);
             AddComponent<CardComponent>(cardComponent);
         }
         

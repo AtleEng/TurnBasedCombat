@@ -5,7 +5,7 @@ using CoreEngine;
 
 namespace Engine
 {
-    public class HealthComponent : Component, IScript
+    public class HealthComponent : Component
     {
         public int currentHealth = 10;
         public int maxHealth = 10;
