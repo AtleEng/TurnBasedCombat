@@ -8,23 +8,24 @@ namespace Engine
     public class Card : GameEntity
     {
         public CardStats cardStats;
-        public Card(CardStats cardStats)
-        {
-            this.cardStats = cardStats;
-        }
+        Sprite sprite;
         public override void OnInnit()
         {
-            name = "Card-" + cardStats.nameOfCard;
-            localTransform.size = new Vector2(2,2);
 
-            Sprite sprite = new Sprite
+            localTransform.size = new Vector2(2, 2);
+
+            sprite = new Sprite
             {
                 spriteSheet = Raylib.LoadTexture(@"Project\Sprites\Cards1.png"),
                 spriteGrid = new Vector2(3, 9),
-                FrameIndex = cardStats.cardSpriteIndex,
+                FrameIndex = 0,
                 layer = 10
             };
             AddComponent<Sprite>(sprite);
+        }
+        public void SetSprite(int index)
+        {
+            sprite.FrameIndex = index;
         }
     }
 }

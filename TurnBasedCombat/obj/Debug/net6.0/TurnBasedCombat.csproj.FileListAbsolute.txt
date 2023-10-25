@@ -82,3 +82,4 @@ c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\obj\De
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\obj\Debug\net6.0\TurnBasedCombat.pdb
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\obj\Debug\net6.0\TurnBasedCombat.genruntimeconfig.cache
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\obj\Debug\net6.0\ref\TurnBasedCombat.dll
+c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\CardLogic\CardComponent.cs

@@ -7,15 +7,17 @@ namespace Engine
 {
     public class CardManager : Component, IScript
     {
-        public Dictionary<String, CardStats> allCards = new();
-        List<CardStats> cardsInDrawPile = new();
+        public Dictionary<string, CardStats> allCards = new();
+        List<CardStats> cardsInDrawpile = new();
         List<CardStats> cardsInDiscardPile = new();
         List<Card> cardsInHand = new();
+
         Vector2[] cardPositions = { new Vector2(-4, 3.25f), new Vector2(-2, 3.25f), new Vector2(0, 3.25f), new Vector2(2, 3.25f) };
 
         GameEntity cardHolder = new();
 
         int selectedCard = 0;
+
         public override void Start()
         {
             cardHolder.name = "Cards";
@@ -49,19 +51,20 @@ namespace Engine
             AddCard("ManaPotion", 25, 0, 0, 0, null, 1, 0, 0, null, CardStats.TargetType.Self);
             AddCard("HeavyArmor", 26, 3, 0, 0, null, 0, 0, 4, null, CardStats.TargetType.Self);
 
-            cardsInDrawPile.Add(allCards["Dagger"]);
-            cardsInDrawPile.Add(allCards["Dagger"]);
-            cardsInDrawPile.Add(allCards["Mace"]);
-            cardsInDrawPile.Add(allCards["ManaPotion"]);
-            cardsInDrawPile.Add(allCards["ManaPotion"]);
-            cardsInDrawPile.Add(allCards["Shield"]);
-            cardsInDrawPile.Add(allCards["Shield"]);
-            cardsInDrawPile.Add(allCards["Bow"]);
-            cardsInDrawPile.Add(allCards["Fireball"]);
-            cardsInDrawPile.Add(allCards["Fireball"]);
+            cardsInDrawpile.Add(allCards["Dagger"]);
+            cardsInDrawpile.Add(allCards["Dagger"]);
+            cardsInDrawpile.Add(allCards["Mace"]);
+            cardsInDrawpile.Add(allCards["ManaPotion"]);
+            cardsInDrawpile.Add(allCards["ManaPotion"]);
+            cardsInDrawpile.Add(allCards["Shield"]);
+            cardsInDrawpile.Add(allCards["Shield"]);
+            cardsInDrawpile.Add(allCards["Bow"]);
+            cardsInDrawpile.Add(allCards["Fireball"]);
+            cardsInDrawpile.Add(allCards["Fireball"]);
 
+            SpawInCards();
             ShuffleDeck();
-            OnDraw();
+            DrawFullHand();
         }
 
         public override void Update(float delta)
@@ -73,7 +76,7 @@ namespace Engine
                 if (Raylib.CheckCollisionPointRec
                 (mPos, new Rectangle(cardsInHand[i].worldTransform.position.X - cardsInHand[i].worldTransform.size.X / 2, cardsInHand[i].worldTransform.position.Y - cardsInHand[i].worldTransform.size.Y / 2,
                             cardsInHand[i].worldTransform.size.X, cardsInHand[i].worldTransform.size.Y))
-                )
+                && cardsInHand[i].isActive)
                 {
                     //hovering
 
@@ -84,25 +87,100 @@ namespace Engine
                     }
                 }
             }
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
+            {
+                DiscardHand();
+                DrawFullHand();
+            }
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_ONE))
+            {
+                DiscardCard(0);
+            }
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_TWO))
+            {
+                DiscardCard(1);
+            }
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_THREE))
+            {
+                DiscardCard(2);
+            }
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_FOUR))
+            {
+                DiscardCard(3);
+            }
         }
-        public void OnDraw()
+        void SpawInCards()
         {
             for (int i = 0; i < cardPositions.Length; i++)
             {
-                if (cardsInDrawPile.Count < 0) { ShuffleDeck(); }
-
-                Card card = new(cardsInDrawPile[0]);
-                cardsInDrawPile.Remove(cardsInDrawPile[0]);
-
+                Card card = new Card
+                {
+                    isActive = false
+                };
                 cardsInHand.Add(card);
-
                 EntityManager.SpawnEntity(card, cardPositions[i], Vector2.One, cardHolder);
+            }
+        }
+
+        //----------------------==CardLogic==----------------------
+        public void UseCard(int i)
+        {
+            if (!cardsInHand[i].isActive) { return; }
+            
+            DiscardCard(i);
+        }
+
+        public void DrawACard(int i)
+        {
+            if (cardsInDrawpile.Count <= 0)
+            {
+                ShuffleDeck();
+            }
+
+            CardStats drawnCardStats = cardsInDrawpile[0];
+            cardsInDrawpile.RemoveAt(0);
+
+            cardsInHand[i].cardStats = drawnCardStats;
+            cardsInHand[i].name = "Card-" + drawnCardStats.nameOfCard;
+            cardsInHand[i].isActive = true;
+            cardsInHand[i].SetSprite(cardsInHand[i].cardStats.cardSpriteIndex);
+
+            Console.WriteLine($"Draw card: {cardsInHand[i].name} at: {i}");
+        }
+
+        public void DiscardCard(int i)
+        {
+            if (!cardsInHand[i].isActive) { return; }
+            cardsInDiscardPile.Add(cardsInHand[i].cardStats);
+            cardsInHand[i].isActive = false;
+
+            Console.WriteLine($"Discarding: {cardsInHand[i].name} at: {i}");
+        }
+
+        public void DrawFullHand()
+        {
+            Console.WriteLine("Drawing full hand");
+
+            for (int i = 0; i < cardPositions.Length; i++)
+            {
+                if (!cardsInHand[i].isActive)
+                {
+                    DrawACard(i);
+                }
+            }
+        }
+        public void DiscardHand()
+        {
+            System.Console.WriteLine("Clear hand");
+            for (int i = 0; i < cardsInHand.Count; i++)
+            {
+                if (cardsInHand[i].isActive) { DiscardCard(i); }
             }
         }
         public void ShuffleDeck()
         {
             // Combine cards from discardPile and drawPile
-            List<CardStats> combinedDeck = new List<CardStats>(cardsInDrawPile);
+            List<CardStats> combinedDeck = new List<CardStats>(cardsInDrawpile);
             combinedDeck.AddRange(cardsInDiscardPile);
 
             Random rand = new Random();
@@ -120,19 +198,8 @@ namespace Engine
             cardsInDiscardPile.Clear();
 
             // Assign the shuffled combined deck back to drawPile
-            cardsInDrawPile = combinedDeck;
+            cardsInDrawpile = combinedDeck;
         }
-        public void OnDone()
-        {
-            for (int i = 0; i < cardsInHand.Count; i++)
-            {
-                cardsInDiscardPile.Add(cardsInHand[i].cardStats);
-
-                EntityManager.DestroyEntity(cardsInHand[i]);
-            }
-            cardsInHand.Clear();
-        }
-
         void AddCard(string nameOfCard,
         int cardSpriteIndex, int manaCost, int healthCost, int shieldCost, Effect? effectCost,
         int manaApply, int dmgApply, int shieldApply, Effect? effectApply, CardStats.TargetType targetType)
