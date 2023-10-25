@@ -7,14 +7,13 @@ namespace Engine
 {
     public class Card : GameEntity
     {
-        public CardStats cardStats;
-        Sprite sprite;
+        public CardComponent cardComponent;
         public override void OnInnit()
         {
 
             localTransform.size = new Vector2(2, 2);
 
-            sprite = new Sprite
+            Sprite sprite = new Sprite
             {
                 spriteSheet = Raylib.LoadTexture(@"Project\Sprites\Cards1.png"),
                 spriteGrid = new Vector2(3, 9),
@@ -22,10 +21,10 @@ namespace Engine
                 layer = 10
             };
             AddComponent<Sprite>(sprite);
+
+            cardComponent = new(sprite);
+            AddComponent<CardComponent>(cardComponent);
         }
-        public void SetSprite(int index)
-        {
-            sprite.FrameIndex = index;
-        }
+        
     }
 }

@@ -108,6 +108,10 @@ namespace Engine
             {
                 DiscardCard(3);
             }
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_D))
+            {
+                DrawACard(0);
+            }
         }
         void SpawInCards()
         {
@@ -125,13 +129,22 @@ namespace Engine
         //----------------------==CardLogic==----------------------
         public void UseCard(int i)
         {
+            if(i >= cardsInHand.Count){return;}
             if (!cardsInHand[i].isActive) { return; }
-            
+
             DiscardCard(i);
         }
 
         public void DrawACard(int i)
         {
+            if(i >= cardsInHand.Count){return;}
+
+            if (cardsInHand[i].isActive)
+            {
+                DrawACard(i+1);
+                return;
+            }
+
             if (cardsInDrawpile.Count <= 0)
             {
                 ShuffleDeck();
@@ -140,18 +153,20 @@ namespace Engine
             CardStats drawnCardStats = cardsInDrawpile[0];
             cardsInDrawpile.RemoveAt(0);
 
-            cardsInHand[i].cardStats = drawnCardStats;
+            cardsInHand[i].cardComponent.cardStats = drawnCardStats;
             cardsInHand[i].name = "Card-" + drawnCardStats.nameOfCard;
             cardsInHand[i].isActive = true;
-            cardsInHand[i].SetSprite(cardsInHand[i].cardStats.cardSpriteIndex);
+            cardsInHand[i].cardComponent.sprite.FrameIndex = cardsInHand[i].cardComponent.cardStats.cardSpriteIndex;
 
             Console.WriteLine($"Draw card: {cardsInHand[i].name} at: {i}");
         }
 
         public void DiscardCard(int i)
         {
+            if(i >= cardsInHand.Count){return;}
             if (!cardsInHand[i].isActive) { return; }
-            cardsInDiscardPile.Add(cardsInHand[i].cardStats);
+
+            cardsInDiscardPile.Add(cardsInHand[i].cardComponent.cardStats);
             cardsInHand[i].isActive = false;
 
             Console.WriteLine($"Discarding: {cardsInHand[i].name} at: {i}");
