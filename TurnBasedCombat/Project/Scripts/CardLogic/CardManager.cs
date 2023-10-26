@@ -67,7 +67,6 @@ namespace Engine
             ShuffleDeck();
             DrawFullHand();
         }
-
         public override void Update(float delta)
         {
             Vector2 mPos = WorldSpace.GetVirtualMousePos();

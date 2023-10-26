@@ -10,11 +10,11 @@ namespace Engine
         public int currentMana = 4;
         public int maxMana = 4;
 
-        public ManaBar manaBarLogic;
+        public ManaBar manaBar;
 
-        public ManaComponent(ManaBar manaBarLogic)
+        public ManaComponent(ManaBar manaBar)
         {
-            this.manaBarLogic = manaBarLogic;
+            this.manaBar = manaBar;
         }
 
         public override string PrintStats()
@@ -47,11 +47,11 @@ namespace Engine
         {
             for (int i = 0; i < maxMana; i++)
             {
-                manaBarLogic.manaSprites[i].isActive = false;
+                manaBar.manaSprites[i].isActive = false;
             }
             for (int i = 0; i < currentMana; i++)
             {
-                manaBarLogic.manaSprites[i].isActive = true;
+                manaBar.manaSprites[i].isActive = true;
             }
         }
     }

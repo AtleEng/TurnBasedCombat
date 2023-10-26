@@ -116,10 +116,10 @@ namespace CoreEngine
 
                     Raylib.DrawTexturePro(sprite.spriteSheet, source, destRec, Vector2.Zero, 0, sprite.colorTint);
                 }
-                Raylib.DrawCircle((int)p.X, (int)p.Y, 5, Color.RED);
+                //Raylib.DrawCircle((int)p.X, (int)p.Y, 5, Color.RED);
             }
-            DisplayGrid();
-            Raylib.DrawText($"GameEntitys:{Core.gameEntities.Count}\nFPS:{Raylib.GetFPS()}", 20, 20, 20, Color.RAYWHITE);
+            //DisplayGrid();
+            //Raylib.DrawText($"GameEntitys:{Core.gameEntities.Count}\nFPS:{Raylib.GetFPS()}", 20, 20, 20, Color.RAYWHITE);
         }
         void SetValuesOfWindow()
         {

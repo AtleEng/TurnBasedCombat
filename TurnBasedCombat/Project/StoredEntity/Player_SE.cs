@@ -18,15 +18,20 @@ namespace Engine
             {
                 name = "ManaBar"
             };
-
             EntityManager.SpawnEntity(manaBar, Vector2.Zero, Vector2.One, null);
 
-            manaComponent = new ManaComponent(manaBar);
+            manaComponent = new(manaBar);
             AddComponent<ManaComponent>(manaComponent);
 
-            healthComponent = new();
+            HealthBar healthBar = new()
+            {
+                name = "HealthBar"
+            };
+            EntityManager.SpawnEntity(healthBar, Vector2.Zero, Vector2.One, this);
+
+            healthComponent = new(healthBar);
             AddComponent<HealthComponent>(healthComponent);
-            
+
 
             Sprite sprite = new Sprite
             {
@@ -42,7 +47,7 @@ namespace Engine
             animator.AddAnimation("Attack", attackAnimation);
 
             AddComponent<AnimatorController>(animator);
-            
+
         }
     }
 }

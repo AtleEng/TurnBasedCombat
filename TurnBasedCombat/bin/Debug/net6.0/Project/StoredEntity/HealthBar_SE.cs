@@ -7,26 +7,36 @@ namespace Engine
 {
     public class HealthBar : GameEntity
     {
-        public List<GameEntity> manaSprites = new();
-        Vector2[] spritesPositions = { new Vector2(-6.5f, 1.5f), new Vector2(-5.5f, 1.5f), new Vector2(-4.5f, 1.5f), new Vector2(-3.5f, 1.5f) };
+        public List<HealthSprite> healthSprites = new();
+        Vector2[] spritesPositions = { new Vector2(-0.325f, 1.325f), new Vector2(0, 1.325f), new Vector2(0.325f, 1.325f), new Vector2(0.65f, 1.325f) };
 
         public override void OnInnit()
         {
             Texture2D healthTexture = Raylib.LoadTexture(@"Project\Sprites\HealthBar.png");
             for (int i = 0; i < spritesPositions.Length; i++)
             {
-                GameEntity manaSprite = new();
-                Sprite sprite = new()
+                HealthSprite healthSprite = new(healthTexture)
                 {
-                    spriteSheet = healthTexture,
-                    spriteGrid = new Vector2(1, 3),
-                    layer = 10
+                    name = "HealthSprite-" + i
                 };
-                manaSprite.name = "HealthSprite-" + i;
-                manaSprite.AddComponent<Sprite>(sprite);
-                manaSprites.Add(manaSprite);
-                EntityManager.SpawnEntity(manaSprite, spritesPositions[i], Vector2.One, this);
+
+                healthSprites.Add(healthSprite);
+                EntityManager.SpawnEntity(healthSprite, spritesPositions[i], new Vector2(0.1875f,0.1875f), this);
             }
+        }
+    }
+    public class HealthSprite : GameEntity
+    {
+        public Sprite sprite;
+        public HealthSprite(Texture2D texture2D)
+        {
+            sprite = new()
+            {
+                spriteSheet = texture2D,
+                spriteGrid = new Vector2(3, 1),
+                layer = 10
+            };
+            AddComponent<Sprite>(sprite);
         }
     }
 }

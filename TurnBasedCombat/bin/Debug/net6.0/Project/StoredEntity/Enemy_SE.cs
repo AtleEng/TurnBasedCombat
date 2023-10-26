@@ -7,11 +7,19 @@ namespace Engine
 {
     public class Enemy : GameEntity
     {
+         public HealthComponent healthComponent;
+          public AnimatorController animator;
         public override void OnInnit()
         {
             name = "Enemy";
 
-            HealthComponent healthComponent = new();
+            HealthBar healthBar = new()
+            {
+                name = "HealthBar"
+            };
+            EntityManager.SpawnEntity(healthBar, Vector2.Zero, Vector2.One, this);
+
+            healthComponent = new(healthBar);
             AddComponent<HealthComponent>(healthComponent);
 
             Sprite sprite = new Sprite

@@ -15,10 +15,6 @@ namespace Engine
             this.sprite = sprite;
             this.player = player;
         }
-        public override string PrintStats()
-        {
-            return $"";
-        }
         public bool CanUseCard()
         {
             System.Console.WriteLine(player.manaComponent.currentMana);
@@ -28,7 +24,7 @@ namespace Engine
                 player.healthComponent.currentShield -= cardStats.shieldCost;
                 if(player.healthComponent.currentShield < 0){player.healthComponent.currentShield = 0;}
 
-                player.healthComponent.TakeDMG(cardStats.dmgApply, player.healthComponent);
+                player.healthComponent.TakeDMG(cardStats.healthCost, player.healthComponent);
 
                 return true;
             }
