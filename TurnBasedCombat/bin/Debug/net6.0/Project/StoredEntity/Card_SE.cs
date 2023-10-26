@@ -9,10 +9,10 @@ namespace Engine
     {
         public CardComponent cardComponent;
         public Player player;
-        public override void OnInnit()
-        {
 
-            localTransform.size = new Vector2(2, 2);
+        public Card(Player player)
+        {
+            this.player = player;
 
             Sprite sprite = new Sprite
             {
@@ -26,6 +26,5 @@ namespace Engine
             cardComponent = new(sprite, player);
             AddComponent<CardComponent>(cardComponent);
         }
-        
     }
 }

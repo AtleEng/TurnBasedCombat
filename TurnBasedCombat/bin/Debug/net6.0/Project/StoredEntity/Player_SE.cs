@@ -14,15 +14,17 @@ namespace Engine
         {
             name = "Player";
 
-            GameEntity manaBar = new();
-            manaBar.AddComponent<ManaBarLogic>(new ManaBarLogic());
+            ManaBar manaBar = new()
+            {
+                name = "ManaBar"
+            };
 
             EntityManager.SpawnEntity(manaBar, Vector2.Zero, Vector2.One, null);
 
-            ManaComponent manaComponent = new ManaComponent(manaBar.GetComponent<ManaBarLogic>());
+            manaComponent = new ManaComponent(manaBar);
             AddComponent<ManaComponent>(manaComponent);
 
-            HealthComponent healthComponent = new();
+            healthComponent = new();
             AddComponent<HealthComponent>(healthComponent);
             
 

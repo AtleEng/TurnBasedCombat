@@ -7,8 +7,8 @@ namespace Engine
 {
     public class HealthComponent : Component
     {
-        public int currentHealth = 10;
-        public int maxHealth = 10;
+        public int currentHealth = 5;
+        public int maxHealth = 5;
         public int currentShield = 0;
         public override string PrintStats()
         {

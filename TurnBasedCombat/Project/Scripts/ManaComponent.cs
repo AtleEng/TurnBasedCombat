@@ -10,9 +10,9 @@ namespace Engine
         public int currentMana = 4;
         public int maxMana = 4;
 
-        public ManaBarLogic manaBarLogic;
+        public ManaBar manaBarLogic;
 
-        public ManaComponent(ManaBarLogic manaBarLogic)
+        public ManaComponent(ManaBar manaBarLogic)
         {
             this.manaBarLogic = manaBarLogic;
         }
@@ -25,7 +25,7 @@ namespace Engine
         {
             int mana = currentMana;
             mana -= manaAmount;
-            if (mana <= 0)
+            if (mana < 0)
             {
                 return false;
             }

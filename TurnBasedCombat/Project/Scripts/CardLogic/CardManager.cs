@@ -49,7 +49,7 @@ namespace Engine
             AddCard("HolyProtection", 22, 0, 0, 0, null, 0, 0, 0, null, CardStats.TargetType.Self);
             AddCard("LightArmor", 23, 2, 0, 0, null, 0, 0, 2, null, CardStats.TargetType.Self);
             AddCard("PartyTime", 24, 0, 0, 0, null, 0, 0, 0, null, CardStats.TargetType.All);
-            AddCard("ManaPotion", 25, 0, 0, 0, null, 1, 0, 0, null, CardStats.TargetType.Self);
+            AddCard("ManaPotion", 25, 0, 0, 0, null, 2, 0, 0, null, CardStats.TargetType.Self);
             AddCard("HeavyArmor", 26, 3, 0, 0, null, 0, 0, 4, null, CardStats.TargetType.Self);
 
             cardsInDrawpile.Add(allCards["Dagger"]);
@@ -85,8 +85,8 @@ namespace Engine
                     if (Raylib.IsMouseButtonDown(0))
                     {
                         selectedCard = i;
-                        cardsInHand[i].cardComponent.OnUseCard();
-                        DiscardCard(i);
+
+                        UseCard(i);
                     }
                 }
             }
@@ -120,32 +120,32 @@ namespace Engine
         {
             for (int i = 0; i < cardPositions.Length; i++)
             {
-                Card card = new Card
+                Card card = new Card(player)
                 {
-                    isActive = false
-                    
+                    isActive = false,
                 };
                 cardsInHand.Add(card);
-                EntityManager.SpawnEntity(card, cardPositions[i], Vector2.One, cardHolder);
+                EntityManager.SpawnEntity(card, cardPositions[i], new Vector2(2,2), cardHolder);
             }
         }
 
         //----------------------==CardLogic==----------------------
         public void UseCard(int i)
         {
-            if(i >= cardsInHand.Count){return;}
-            if (!cardsInHand[i].isActive) { return; }
+            if (i >= cardsInHand.Count || !cardsInHand[i].isActive) { return; }//safety check
+            if(!cardsInHand[i].cardComponent.CanUseCard()){return;}
 
+            cardsInHand[i].cardComponent.UseCard();
             DiscardCard(i);
         }
 
         public void DrawACard(int i)
         {
-            if(i >= cardsInHand.Count){return;}
+            if (i >= cardsInHand.Count) { return; }
 
             if (cardsInHand[i].isActive)
             {
-                DrawACard(i+1);
+                DrawACard(i + 1);
                 return;
             }
 
@@ -167,7 +167,7 @@ namespace Engine
 
         public void DiscardCard(int i)
         {
-            if(i >= cardsInHand.Count){return;}
+            if (i >= cardsInHand.Count) { return; }
             if (!cardsInHand[i].isActive) { return; }
 
             cardsInDiscardPile.Add(cardsInHand[i].cardComponent.cardStats);

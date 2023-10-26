@@ -15,12 +15,29 @@ namespace Engine
             this.sprite = sprite;
             this.player = player;
         }
-        public void OnUseCard()
+        public override string PrintStats()
         {
+            return $"";
+        }
+        public bool CanUseCard()
+        {
+            System.Console.WriteLine(player.manaComponent.currentMana);
             if (player.manaComponent.UseMana(cardStats.manaCost))
             {
                 System.Console.WriteLine("Used card");
+                player.healthComponent.currentShield -= cardStats.shieldCost;
+                if(player.healthComponent.currentShield < 0){player.healthComponent.currentShield = 0;}
+
+                player.healthComponent.TakeDMG(cardStats.dmgApply, player.healthComponent);
+
+                return true;
             }
+            return false;
+        }
+
+        public void UseCard()
+        {
+            player.manaComponent.AddMana(cardStats.manaApply);
         }
     }
 }

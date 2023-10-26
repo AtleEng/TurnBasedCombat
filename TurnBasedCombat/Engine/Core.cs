@@ -64,7 +64,7 @@ namespace CoreEngine
                 system.Update(delta);
             }
 
-            UppdateChildren(currentScene);
+            UpdateChildren(currentScene);
 
             // Add and remove games entities
             foreach (var entity in entitiesToAdd)
@@ -82,21 +82,21 @@ namespace CoreEngine
             //clear the lists
             entitiesToAdd.Clear();
             entitiesToRemove.Clear();
-            if (Raylib.IsKeyDown(KeyboardKey.KEY_F3))
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_F3))
             {
                 //Console.Clear();
                 PrintEntityTree(currentScene, "", "");
             }
         }
 
-        public static void UppdateChildren(GameEntity parent)
+        public static void UpdateChildren(GameEntity parent)
         {
             foreach (var child in parent.children)
             {
                 child.worldTransform.position = child.localTransform.position + parent.worldTransform.position;
                 child.worldTransform.size = child.localTransform.size * parent.worldTransform.size;
 
-                UppdateChildren(child);
+                UpdateChildren(child);
             }
         }
 

@@ -10,8 +10,10 @@ namespace Engine
         {
             name = "UI";
 
-            GameEntity background = new();
-            background.name = "TheBackground";
+            GameEntity background = new()
+            {
+                name = "TheBackground"
+            };
             Sprite backgroundSprite = new()
             {
                 spriteSheet = Raylib.LoadTexture(@"Project\Sprites\UIFrame.png"),

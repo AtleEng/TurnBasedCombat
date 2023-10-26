@@ -80,5 +80,6 @@ c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\De
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\GameManager_SE.cs
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\Player_SE.cs
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\UI_SE.cs
-c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\ManaBarLogic.cs
 c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\ManaComponent.cs
+c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\ManaBar_SE.cs
+c:\Users\atlee\Documents\GameDev\Projects\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\HealthBar_SE.cs
