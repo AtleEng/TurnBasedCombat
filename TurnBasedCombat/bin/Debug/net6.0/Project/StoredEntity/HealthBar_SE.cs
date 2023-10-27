@@ -7,6 +7,7 @@ namespace Engine
 {
     public class HealthBar : GameEntity
     {
+        public int flip = 1;
         public List<HealthSprite> healthSprites = new();
         Vector2[] spritesPositions = { new Vector2(-0.325f, 1.325f), new Vector2(0, 1.325f), new Vector2(0.325f, 1.325f), new Vector2(0.65f, 1.325f) };
 
@@ -19,9 +20,10 @@ namespace Engine
                 {
                     name = "HealthSprite-" + i
                 };
-
                 healthSprites.Add(healthSprite);
-                EntityManager.SpawnEntity(healthSprite, spritesPositions[i], new Vector2(0.1875f,0.1875f), this);
+
+                Vector2 spritePos = new Vector2((-0.65f + 0.325f * i) * flip, 1.65f);
+                EntityManager.SpawnEntity(healthSprite, spritePos, new Vector2(0.1875f, 0.1875f), this);
             }
         }
     }

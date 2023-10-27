@@ -62,6 +62,7 @@ namespace Engine
             cardsInDrawpile.Add(allCards["Bow"]);
             cardsInDrawpile.Add(allCards["Fireball"]);
             cardsInDrawpile.Add(allCards["Fireball"]);
+            cardsInDrawpile.Add(allCards["BloodDagger"]);
 
             SpawInCards();
             ShuffleDeck();
@@ -124,7 +125,7 @@ namespace Engine
                     isActive = false,
                 };
                 cardsInHand.Add(card);
-                EntityManager.SpawnEntity(card, cardPositions[i], new Vector2(2,2), cardHolder);
+                EntityManager.SpawnEntity(card, cardPositions[i], new Vector2(2, 2), cardHolder);
             }
         }
 
@@ -132,7 +133,7 @@ namespace Engine
         public void UseCard(int i)
         {
             if (i >= cardsInHand.Count || !cardsInHand[i].isActive) { return; }//safety check
-            if(!cardsInHand[i].cardComponent.CanUseCard()){return;}
+            if (!cardsInHand[i].cardComponent.CanUseCard()) { return; }
 
             cardsInHand[i].cardComponent.UseCard();
             DiscardCard(i);
