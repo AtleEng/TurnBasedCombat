@@ -15,13 +15,12 @@ namespace Engine
 
             HealthBar healthBar = new()
             {
-                name = "HealthBar",
-                flip = -1
+                name = "HealthBar"
             };
-            EntityManager.SpawnEntity(healthBar, Vector2.Zero, Vector2.One, this);
-
-            healthComponent = new(healthBar);
+            healthComponent = new(healthBar, 3, 1);
             AddComponent<HealthComponent>(healthComponent);
+            EntityManager.SpawnEntity(healthBar, Vector2.Zero, Vector2.One, this);
+            healthComponent.UppdateHealthUI();
 
             Sprite sprite = new Sprite
             {

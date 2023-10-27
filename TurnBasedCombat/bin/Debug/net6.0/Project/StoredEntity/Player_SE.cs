@@ -27,11 +27,10 @@ namespace Engine
             {
                 name = "HealthBar"
             };
-            EntityManager.SpawnEntity(healthBar, Vector2.Zero, Vector2.One, this);
-
-            healthComponent = new(healthBar);
+            healthComponent = new(healthBar, 5, 0);
             AddComponent<HealthComponent>(healthComponent);
-
+            EntityManager.SpawnEntity(healthBar, Vector2.Zero, Vector2.One, this);
+            healthComponent.UppdateHealthUI();
 
             Sprite sprite = new Sprite
             {

@@ -33,6 +33,7 @@ namespace Engine
         public void UseCard()
         {
             player.manaComponent.AddMana(cardStats.manaApply);
+            player.healthComponent.AddShield(cardStats.shieldApply);
         }
     }
 }

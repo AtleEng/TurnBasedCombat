@@ -7,14 +7,19 @@ namespace Engine
 {
     public class HealthComponent : Component
     {
-        public int currentHealth = 4;
-        public int maxHealth = 4;
-        public int currentShield = 0;
+        public int currentHealth;
+        public int maxHealth;
+        public int currentShield;
         public HealthBar healthBar;
 
-        public HealthComponent(HealthBar healthBar)
+        public HealthComponent(HealthBar healthBar, int maxHealth, int startShield)
         {
             this.healthBar = healthBar;
+            this.maxHealth = maxHealth;
+            currentHealth = maxHealth;
+
+            healthBar.maxHealth = maxHealth;
+            currentShield = startShield;
         }
         public override string PrintStats()
         {
@@ -57,15 +62,20 @@ namespace Engine
             Console.WriteLine($"{gameEntity.name} was killed by {killer.gameEntity.name}");
         }
 
-        void UppdateHealthUI()
+        public void UppdateHealthUI()
         {
             for (int i = 0; i < maxHealth; i++)
             {
                 healthBar.healthSprites[i].sprite.FrameIndex = 2;
+                healthBar.shieldSprites[i].isActive = false;
             }
             for (int i = 0; i < currentHealth; i++)
             {
                 healthBar.healthSprites[i].sprite.FrameIndex = 0;
+            }
+            for (int i = 0; i < currentShield; i++)
+            {
+                healthBar.shieldSprites[i].isActive = true;
             }
         }
     }
