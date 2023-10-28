@@ -74,13 +74,15 @@ namespace Engine
 
             for (int i = 0; i < cardsInHand.Count; i++)
             {
+                cardsInHand[i].localTransform.position = cardPositions[i];//reset hovering
+
                 if (Raylib.CheckCollisionPointRec
                 (mPos, new Rectangle(cardsInHand[i].worldTransform.position.X - cardsInHand[i].worldTransform.size.X / 2, cardsInHand[i].worldTransform.position.Y - cardsInHand[i].worldTransform.size.Y / 2,
                             cardsInHand[i].worldTransform.size.X, cardsInHand[i].worldTransform.size.Y))
                 && cardsInHand[i].isActive)
                 {
                     //hovering
-
+                    cardsInHand[i].localTransform.position.Y = cardPositions[i].Y - 0.125f;
                     //klicked
                     if (Raylib.IsMouseButtonDown(0))
                     {
