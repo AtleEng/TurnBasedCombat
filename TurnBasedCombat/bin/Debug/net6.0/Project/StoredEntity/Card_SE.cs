@@ -8,13 +8,11 @@ namespace Engine
     public class Card : GameEntity
     {
         public CardComponent cardComponent;
-        public Player player;
+        public Sprite sprite;
 
-        public Card(Player player)
+        public Card()
         {
-            this.player = player;
-
-            Sprite sprite = new Sprite
+            sprite = new Sprite
             {
                 spriteSheet = Raylib.LoadTexture(@"Project\Sprites\Cards1.png"),
                 spriteGrid = new Vector2(3, 9),
@@ -23,7 +21,7 @@ namespace Engine
             };
             AddComponent<Sprite>(sprite);
 
-            cardComponent = new(sprite, player);
+            cardComponent = new();
             AddComponent<CardComponent>(cardComponent);
         }
     }

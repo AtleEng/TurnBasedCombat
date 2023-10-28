@@ -6,7 +6,7 @@ using Engine;
 
 namespace CoreAnimation
 {
-    public class AnimatorController : Component
+    public class Animator : Component
     {
         public Sprite sprite;
         public Dictionary<string, Animation> animations;
@@ -16,7 +16,7 @@ namespace CoreAnimation
 
         public bool isPlaying;
 
-        public AnimatorController(Sprite sprite)
+        public Animator(Sprite sprite)
         {
             this.sprite = sprite;
 

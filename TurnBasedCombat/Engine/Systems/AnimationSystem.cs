@@ -10,7 +10,7 @@ namespace CoreAnimation
         {
             foreach (GameEntity gameEntity in Core.activeGameEntities)
             {
-                AnimatorController? animator = gameEntity.components.ContainsKey(typeof(AnimatorController)) ? gameEntity.components[typeof(AnimatorController)] as AnimatorController : null;
+                Animator? animator = gameEntity.components.ContainsKey(typeof(Animator)) ? gameEntity.components[typeof(Animator)] as Animator : null;
                 if (animator != null)
                 {
                     if (animator.currentAnimation != null && animator.animations.ContainsKey(animator.currentAnimation) && animator.isPlaying)

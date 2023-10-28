@@ -7,21 +7,25 @@ namespace Engine
 {
     public class CardManager : Component, IScript
     {
-        public Player player;
+        public ManaComponent manaComponent;
         public Dictionary<string, CardStats> allCards = new();
         List<CardStats> cardsInDrawpile = new();
         List<CardStats> cardsInDiscardPile = new();
         List<Card> cardsInHand = new();
 
         Vector2[] cardPositions = { new Vector2(-4, 3.25f), new Vector2(-2, 3.25f), new Vector2(0, 3.25f), new Vector2(2, 3.25f) };
-
         GameEntity cardHolder = new();
 
-        int selectedCard = 0;
+        List<Character> characters = new();
+        Vector2[] targetsPosition = { new Vector2(-4, -1), new Vector2(0, -1), new Vector2(2, -1), new Vector2(4, -1) };
+
+        int selectedCard = -1; //if negative no card is selected
+        int selectedCharacter = -1;
 
         public override void Start()
         {
             cardHolder.name = "Cards";
+
             EntityManager.SpawnEntity(cardHolder);
 
             AddCard("Dagger", 0, 1, 0, 0, null, 0, 2, 0, null, CardStats.TargetType.Melee);
@@ -70,58 +74,87 @@ namespace Engine
         }
         public override void Update(float delta)
         {
-            Vector2 mPos = WorldSpace.GetVirtualMousePos();
+            if (selectedCard >= 0) { SelectTargetLogic(); }
 
-            for (int i = 0; i < cardsInHand.Count; i++)
-            {
-                cardsInHand[i].localTransform.position = cardPositions[i];
-                if (Raylib.CheckCollisionPointRec
-                (mPos, new Rectangle(cardsInHand[i].worldTransform.position.X - cardsInHand[i].worldTransform.size.X / 2, cardsInHand[i].worldTransform.position.Y - cardsInHand[i].worldTransform.size.Y / 2,
-                            cardsInHand[i].worldTransform.size.X, cardsInHand[i].worldTransform.size.Y))
-                && cardsInHand[i].isActive)
-                {
-                    //hovering
-                    cardsInHand[i].localTransform.position.Y = cardPositions[i].Y - 0.125f;
-                    //klicked
-                    if (Raylib.IsMouseButtonDown(0))
-                    {
-                        selectedCard = i;
-
-                        UseCard(i);
-                    }
-                }
-            }
+            SelectCardLogic();
             if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
             {
                 DiscardHand();
                 DrawFullHand();
             }
-            if (Raylib.IsKeyPressed(KeyboardKey.KEY_ONE))
+        }
+        void SelectCardLogic()
+        {
+            Vector2 mPos = WorldSpace.GetVirtualMousePos();
+
+            if (Raylib.IsMouseButtonDown(0))
             {
-                DiscardCard(0);
+                selectedCard = -1;
             }
-            if (Raylib.IsKeyPressed(KeyboardKey.KEY_TWO))
+            for (int i = 0; i < cardsInHand.Count; i++)
             {
-                DiscardCard(1);
+                cardsInHand[i].localTransform.position = cardPositions[i];//reset hovering
+
+                if (Raylib.CheckCollisionPointRec
+                (mPos, new Rectangle(cardsInHand[i].worldTransform.position.X - cardsInHand[i].worldTransform.size.X / 2, cardsInHand[i].worldTransform.position.Y - cardsInHand[i].worldTransform.size.Y / 2,
+                            cardsInHand[i].worldTransform.size.X, cardsInHand[i].worldTransform.size.Y))
+                && cardsInHand[i].isActive)
+                {
+                    if (selectedCard < 0)
+                    {
+                        //hovering
+                        cardsInHand[i].localTransform.position.Y = cardPositions[i].Y - 0.125f;
+                    }
+                    //klicked
+                    if (Raylib.IsMouseButtonDown(0))
+                    {
+                        selectedCard = i;
+
+                        //UseCard(i);
+                    }
+                }
+                if (selectedCard >= 0)
+                {
+                    cardsInHand[selectedCard].localTransform.position.Y = cardPositions[selectedCard].Y - 0.125f;
+                }
             }
-            if (Raylib.IsKeyPressed(KeyboardKey.KEY_THREE))
+        }
+        void SelectTargetLogic()
+        {
+            CardStats.TargetType targetType = cardsInHand[selectedCard].cardComponent.cardStats.targetType;
+            List<Character> targets = new();
+            Vector2 mPos = WorldSpace.GetVirtualMousePos();
+
+            for (int i = 0; i < characters.Count; i++)
             {
-                DiscardCard(2);
-            }
-            if (Raylib.IsKeyPressed(KeyboardKey.KEY_FOUR))
-            {
-                DiscardCard(3);
-            }
-            if (Raylib.IsKeyPressed(KeyboardKey.KEY_D))
-            {
-                DrawACard(0);
+                if (Raylib.CheckCollisionPointRec
+                (mPos, new Rectangle(characters[i].worldTransform.position.X - characters[i].worldTransform.size.X / 2,
+                characters[i].worldTransform.position.Y - characters[i].worldTransform.size.Y / 2,
+                characters[i].worldTransform.size.X, characters[i].worldTransform.size.Y))
+                && characters[i].isActive)
+                {
+                    if (selectedCharacter < 0)
+                    {
+                        //hovering
+
+                    }
+                    //klicked
+                    if (Raylib.IsMouseButtonDown(0))
+                    {
+                        selectedCharacter = i;
+
+                        targets.Add(characters[selectedCharacter]);
+                    }
+                }
+
+                UseCard(selectedCard, characters[0], targets);
             }
         }
         void SpawInCards()
         {
             for (int i = 0; i < cardPositions.Length; i++)
             {
-                Card card = new Card(player)
+                Card card = new Card()
                 {
                     isActive = false,
                 };
@@ -131,12 +164,12 @@ namespace Engine
         }
 
         //----------------------==CardLogic==----------------------
-        public void UseCard(int i)
+        public void UseCard(int i, Character user, List<Character> target)
         {
             if (i >= cardsInHand.Count || !cardsInHand[i].isActive) { return; }//safety check
-            if (!cardsInHand[i].cardComponent.CanUseCard()) { return; }
+            if (!cardsInHand[i].cardComponent.CanUseCard(manaComponent)) { return; }
 
-            cardsInHand[i].cardComponent.UseCard();
+            cardsInHand[i].cardComponent.UseCard(user, target, manaComponent);
             DiscardCard(i);
         }
 
@@ -161,7 +194,7 @@ namespace Engine
             cardsInHand[i].cardComponent.cardStats = drawnCardStats;
             cardsInHand[i].name = "Card-" + drawnCardStats.nameOfCard;
             cardsInHand[i].isActive = true;
-            cardsInHand[i].cardComponent.sprite.FrameIndex = cardsInHand[i].cardComponent.cardStats.cardSpriteIndex;
+            cardsInHand[i].sprite.FrameIndex = cardsInHand[i].cardComponent.cardStats.cardSpriteIndex;
 
             Console.WriteLine($"Draw card: {cardsInHand[i].name} at: {i}");
         }

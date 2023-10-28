@@ -78,9 +78,11 @@ C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\De
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\Effect.cs
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\ManaComponent.cs
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\Card_SE.cs
-C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\Enemy_SE.cs
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\GameManager_SE.cs
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\HealthBar_SE.cs
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\ManaBar_SE.cs
-C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\Player_SE.cs
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\UI_SE.cs
+C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\CharacterLogic\CharacterManager.cs
+C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\CharacterLogic\CharacterStats.cs
+C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\Character_SE.cs
+C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\EnemyBehaviour.cs
