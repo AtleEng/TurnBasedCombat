@@ -65,18 +65,13 @@ namespace Engine
             cardsInDrawpile.Add(allCards["BurnTheEarth"]);
             cardsInDrawpile.Add(allCards["Bomb"]);
 
-            SpawInCards();
+            SpawInCardObjects();
             ShuffleDeck();
             DrawFullHand();
         }
         public override void Update(float delta)
         {
             SelectCardLogic();
-            if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
-            {
-                DiscardHand();
-                DrawFullHand();
-            }
         }
         void SelectCardLogic()
         {
@@ -115,7 +110,7 @@ namespace Engine
             }
         }
 
-        void SpawInCards()
+        void SpawInCardObjects()
         {
             for (int i = 0; i < cardPositions.Length; i++)
             {

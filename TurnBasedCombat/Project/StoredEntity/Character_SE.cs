@@ -20,7 +20,7 @@ namespace Engine
             healthComponent = new(healthBar, 3, 1);
             AddComponent<HealthComponent>(healthComponent);
             EntityManager.SpawnEntity(healthBar, Vector2.Zero, Vector2.One, this);
-            healthComponent.UppdateHealthUI();
+            healthComponent.UpdateHealthUI();
 
             sprite = new Sprite
             {

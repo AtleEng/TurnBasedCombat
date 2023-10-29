@@ -72,11 +72,6 @@ namespace Engine
         public override void Update(float delta)
         {
             SelectCardLogic();
-            if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
-            {
-                DiscardHand();
-                DrawFullHand();
-            }
         }
         void SelectCardLogic()
         {

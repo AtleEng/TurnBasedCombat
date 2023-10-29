@@ -25,19 +25,35 @@ namespace Engine
         {
             return $"Health: {currentHealth}/{maxHealth} Shield: {currentShield}";
         }
-        public void TakeDMG(int dmg, HealthComponent attacker)
+        public void TakeDMG(int damage, HealthComponent attacker)
         {
-            currentShield -= dmg;
-            if (currentShield < 0)
+            if (currentShield > 0)
             {
-                currentHealth += currentShield;
+                if (damage < currentShield)
+                {
+                    currentShield -= damage;
+                }
+                else
+                {
+                    currentHealth += currentShield - damage; // Add the remainder of the damage to health
+                    currentShield = 0; // Shield is depleted
+                }
+            }
+            else
+            {
+                currentHealth -= damage;
             }
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
                 Die(attacker);
             }
-            UppdateHealthUI();
+            else
+            {
+                Console.WriteLine($"{gameEntity.name} took {damage} by {attacker.gameEntity.name}");
+            }
+
+            UpdateHealthUI();
         }
         public void Heal(int healAmount)
         {
@@ -46,7 +62,7 @@ namespace Engine
             {
                 currentHealth = maxHealth;
             }
-            UppdateHealthUI();
+            UpdateHealthUI();
         }
         public void AddShield(int shieldAmount)
         {
@@ -55,7 +71,7 @@ namespace Engine
             {
                 currentShield = maxHealth;
             }
-            UppdateHealthUI();
+            UpdateHealthUI();
         }
         public void Die(HealthComponent killer)
         {
@@ -63,7 +79,7 @@ namespace Engine
             gameEntity.isActive = false;
         }
 
-        public void UppdateHealthUI()
+        public void UpdateHealthUI()
         {
             for (int i = 0; i < maxHealth; i++)
             {

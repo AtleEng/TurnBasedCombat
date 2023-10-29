@@ -77,11 +77,9 @@ namespace Engine
                 potensialTargets[i].worldTransform.position.Y - potensialTargets[i].worldTransform.size.Y / 2,
                 potensialTargets[i].worldTransform.size.X, potensialTargets[i].worldTransform.size.Y)))
                 {
-                    System.Console.WriteLine("Valid target");
                     //klicked
                     if (Raylib.IsMouseButtonDown(0))
                     {
-                        System.Console.WriteLine("Attack");
                         if (targetType == CardStats.TargetType.All)
                         {
                             cardManager.UseCard(cardManager.selectedCard, characters[0], potensialTargets);
@@ -92,6 +90,7 @@ namespace Engine
                             {
                                 potensialTargets[i]
                             };
+                            characters[0].animator.PlayAnimation("Attack");
                             cardManager.UseCard(cardManager.selectedCard, characters[0], targets);
                         }
 
