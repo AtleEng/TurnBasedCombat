@@ -17,7 +17,7 @@ namespace Engine
             {
                 name = "HealthBar"
             };
-            HealthComponent healthComponent = new(healthBar, 3, 1);
+            healthComponent = new(healthBar, 3, 1);
             AddComponent<HealthComponent>(healthComponent);
             EntityManager.SpawnEntity(healthBar, Vector2.Zero, Vector2.One, this);
             healthComponent.UppdateHealthUI();

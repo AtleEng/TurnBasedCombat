@@ -25,10 +25,11 @@ namespace Engine
             {
                 manaComponent = manaComponent
             };
+            AddComponent<CharacterManager>(new CharacterManager(cardManager));
             AddComponent<CardManager>(cardManager);
 
 
-            AddComponent<CharacterManager>(new CharacterManager());
+
         }
     }
 }

@@ -11,16 +11,11 @@ namespace Engine
         public Dictionary<string, CardStats> allCards = new();
         List<CardStats> cardsInDrawpile = new();
         List<CardStats> cardsInDiscardPile = new();
-        List<Card> cardsInHand = new();
+        public Card[] cardsInHand = new Card[4];
 
         Vector2[] cardPositions = { new Vector2(-4, 3.25f), new Vector2(-2, 3.25f), new Vector2(0, 3.25f), new Vector2(2, 3.25f) };
         GameEntity cardHolder = new();
-
-        List<Character> characters = new();
-        Vector2[] targetsPosition = { new Vector2(-4, -1), new Vector2(0, -1), new Vector2(2, -1), new Vector2(4, -1) };
-
-        int selectedCard = -1; //if negative no card is selected
-        int selectedCharacter = -1;
+        public int selectedCard = -1; //if negative no card is selected
 
         public override void Start()
         {
@@ -67,6 +62,8 @@ namespace Engine
             cardsInDrawpile.Add(allCards["Fireball"]);
             cardsInDrawpile.Add(allCards["Fireball"]);
             cardsInDrawpile.Add(allCards["BloodDagger"]);
+            cardsInDrawpile.Add(allCards["BurnTheEarth"]);
+            cardsInDrawpile.Add(allCards["Bomb"]);
 
             SpawInCards();
             ShuffleDeck();
@@ -74,8 +71,6 @@ namespace Engine
         }
         public override void Update(float delta)
         {
-            if (selectedCard >= 0) { SelectTargetLogic(); }
-
             SelectCardLogic();
             if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
             {
@@ -91,7 +86,7 @@ namespace Engine
             {
                 selectedCard = -1;
             }
-            for (int i = 0; i < cardsInHand.Count; i++)
+            for (int i = 0; i < cardsInHand.Length; i++)
             {
                 cardsInHand[i].localTransform.position = cardPositions[i];//reset hovering
 
@@ -119,37 +114,7 @@ namespace Engine
                 }
             }
         }
-        void SelectTargetLogic()
-        {
-            CardStats.TargetType targetType = cardsInHand[selectedCard].cardComponent.cardStats.targetType;
-            List<Character> targets = new();
-            Vector2 mPos = WorldSpace.GetVirtualMousePos();
 
-            for (int i = 0; i < characters.Count; i++)
-            {
-                if (Raylib.CheckCollisionPointRec
-                (mPos, new Rectangle(characters[i].worldTransform.position.X - characters[i].worldTransform.size.X / 2,
-                characters[i].worldTransform.position.Y - characters[i].worldTransform.size.Y / 2,
-                characters[i].worldTransform.size.X, characters[i].worldTransform.size.Y))
-                && characters[i].isActive)
-                {
-                    if (selectedCharacter < 0)
-                    {
-                        //hovering
-
-                    }
-                    //klicked
-                    if (Raylib.IsMouseButtonDown(0))
-                    {
-                        selectedCharacter = i;
-
-                        targets.Add(characters[selectedCharacter]);
-                    }
-                }
-
-                UseCard(selectedCard, characters[0], targets);
-            }
-        }
         void SpawInCards()
         {
             for (int i = 0; i < cardPositions.Length; i++)
@@ -158,7 +123,7 @@ namespace Engine
                 {
                     isActive = false,
                 };
-                cardsInHand.Add(card);
+                cardsInHand[i] = card;
                 EntityManager.SpawnEntity(card, cardPositions[i], new Vector2(2, 2), cardHolder);
             }
         }
@@ -166,7 +131,7 @@ namespace Engine
         //----------------------==CardLogic==----------------------
         public void UseCard(int i, Character user, List<Character> target)
         {
-            if (i >= cardsInHand.Count || !cardsInHand[i].isActive) { return; }//safety check
+            if (i >= cardsInHand.Length || !cardsInHand[i].isActive) { return; }//safety check
             if (!cardsInHand[i].cardComponent.CanUseCard(manaComponent)) { return; }
 
             cardsInHand[i].cardComponent.UseCard(user, target, manaComponent);
@@ -175,7 +140,7 @@ namespace Engine
 
         public void DrawACard(int i)
         {
-            if (i >= cardsInHand.Count) { return; }
+            if (i >= cardsInHand.Length) { return; }
 
             if (cardsInHand[i].isActive)
             {
@@ -201,7 +166,7 @@ namespace Engine
 
         public void DiscardCard(int i)
         {
-            if (i >= cardsInHand.Count) { return; }
+            if (i >= cardsInHand.Length) { return; }
             if (!cardsInHand[i].isActive) { return; }
 
             cardsInDiscardPile.Add(cardsInHand[i].cardComponent.cardStats);
@@ -225,7 +190,7 @@ namespace Engine
         public void DiscardHand()
         {
             System.Console.WriteLine("Clear hand");
-            for (int i = 0; i < cardsInHand.Count; i++)
+            for (int i = 0; i < cardsInHand.Length; i++)
             {
                 if (cardsInHand[i].isActive) { DiscardCard(i); }
             }

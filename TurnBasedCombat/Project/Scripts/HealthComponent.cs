@@ -60,6 +60,7 @@ namespace Engine
         public void Die(HealthComponent killer)
         {
             Console.WriteLine($"{gameEntity.name} was killed by {killer.gameEntity.name}");
+            gameEntity.isActive = false;
         }
 
         public void UppdateHealthUI()

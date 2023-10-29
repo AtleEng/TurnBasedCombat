@@ -95,6 +95,7 @@ namespace CoreEngine
             {
                 child.worldTransform.position = child.localTransform.position + parent.worldTransform.position;
                 child.worldTransform.size = child.localTransform.size * parent.worldTransform.size;
+                if (parent.isActive == false) { child.isActive = false; }
 
                 UpdateChildren(child);
             }
