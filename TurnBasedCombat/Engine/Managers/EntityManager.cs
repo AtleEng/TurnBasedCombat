@@ -40,6 +40,10 @@ namespace Engine
             {
                 component.OnDestroy();
             }
+            foreach (GameEntity child in entity.children)
+            {
+                DestroyEntity(child);
+            }
             Core.entitiesToRemove.Add(entity);
         }
 

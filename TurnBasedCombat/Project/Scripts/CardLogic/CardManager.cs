@@ -66,8 +66,6 @@ namespace Engine
             cardsInDrawpile.Add(allCards["Bomb"]);
 
             SpawInCardObjects();
-            ShuffleDeck();
-            DrawFullHand();
         }
         public override void Update(float delta)
         {
@@ -142,7 +140,6 @@ namespace Engine
                 DrawACard(i + 1);
                 return;
             }
-
             if (cardsInDrawpile.Count <= 0)
             {
                 ShuffleDeck();

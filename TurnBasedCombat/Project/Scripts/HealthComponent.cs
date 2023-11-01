@@ -12,14 +12,9 @@ namespace Engine
         public int currentShield;
         public HealthBar healthBar;
 
-        public HealthComponent(HealthBar healthBar, int maxHealth, int startShield)
+        public HealthComponent(HealthBar healthBar)
         {
             this.healthBar = healthBar;
-            this.maxHealth = maxHealth;
-            currentHealth = maxHealth;
-
-            healthBar.maxHealth = maxHealth;
-            currentShield = startShield;
         }
         public override string PrintStats()
         {
@@ -50,10 +45,9 @@ namespace Engine
             }
             else
             {
-                Console.WriteLine($"{gameEntity.name} took {damage} by {attacker.gameEntity.name}");
+                Console.WriteLine($"{attacker.gameEntity.name} dealt {damage} dmg to {gameEntity.name}");
             }
-
-            UpdateHealthUI();
+            UpdateUI();
         }
         public void Heal(int healAmount)
         {
@@ -62,7 +56,7 @@ namespace Engine
             {
                 currentHealth = maxHealth;
             }
-            UpdateHealthUI();
+            UpdateUI();
         }
         public void AddShield(int shieldAmount)
         {
@@ -71,7 +65,7 @@ namespace Engine
             {
                 currentShield = maxHealth;
             }
-            UpdateHealthUI();
+            UpdateUI();
         }
         public void Die(HealthComponent killer)
         {
@@ -79,21 +73,9 @@ namespace Engine
             gameEntity.isActive = false;
         }
 
-        public void UpdateHealthUI()
+        public void UpdateUI()
         {
-            for (int i = 0; i < maxHealth; i++)
-            {
-                healthBar.healthSprites[i].sprite.FrameIndex = 2;
-                healthBar.shieldSprites[i].isActive = false;
-            }
-            for (int i = 0; i < currentHealth; i++)
-            {
-                healthBar.healthSprites[i].sprite.FrameIndex = 0;
-            }
-            for (int i = 0; i < currentShield; i++)
-            {
-                healthBar.shieldSprites[i].isActive = true;
-            }
+            healthBar.UpdateHealthUI(currentHealth, maxHealth, currentShield);
         }
     }
 }

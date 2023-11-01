@@ -14,9 +14,9 @@ namespace Engine
         public int startHealth;
         public int startShield;
 
-        public EnemyBehaviour enemyBehaviour;
+        public List<EnemyBehaviour> enemyBehaviour;
 
-        public CharacterStats(String nameOfCharacter, int characterSpriteIndex, int startHealth, int startShield, EnemyBehaviour enemyBehaviour)
+        public CharacterStats(String nameOfCharacter, int characterSpriteIndex, int startHealth, int startShield, List<EnemyBehaviour> enemyBehaviour)
         {
             this.nameOfCharacter = nameOfCharacter;
             this.characterSpriteIndex = characterSpriteIndex;

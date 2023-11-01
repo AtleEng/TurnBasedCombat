@@ -17,10 +17,9 @@ namespace Engine
             {
                 name = "HealthBar"
             };
-            healthComponent = new(healthBar, 3, 1);
-            AddComponent<HealthComponent>(healthComponent);
             EntityManager.SpawnEntity(healthBar, Vector2.Zero, Vector2.One, this);
-            healthComponent.UpdateHealthUI();
+            healthComponent = new(healthBar);
+            AddComponent<HealthComponent>(healthComponent);
 
             sprite = new Sprite
             {
@@ -31,10 +30,11 @@ namespace Engine
 
             animator = new(sprite);
 
-            Animation attackAnimation = new(new int[] { 3, 4, 5 }, 0.2f, false);
-            animator.AddAnimation("Attack", attackAnimation);
-
             AddComponent<Animator>(animator);
+        }
+        public override void OnInnit()
+        {
+
         }
     }
 }

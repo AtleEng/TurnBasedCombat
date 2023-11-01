@@ -7,51 +7,95 @@ namespace Engine
 {
     public class HealthBar : GameEntity
     {
-        public int maxHealth = 3;
-        public int flip = 1;
-        public List<HealthSprite> healthSprites = new();
-        public List<HealthSprite> shieldSprites = new();
+        int flip = 1;
+        List<HealthSprite> healthSprites = new();
+        List<HealthSprite> shieldSprites = new();
 
+        Texture2D healthbarTexture;
+
+        public HealthBar()
+        {
+            healthbarTexture = Raylib.LoadTexture(@"Project\Sprites\HealthBar.png");
+        }
         public override void OnInnit()
         {
-            Texture2D healthbarTexture = Raylib.LoadTexture(@"Project\Sprites\HealthBar.png");
+
+        }
+        public void UpdateHealthUI(int currentHealth, int maxHealth, int currentShield)
+        {
+            // Ensure currentHealth and currentShield are within bounds
+            currentHealth = Math.Min(currentHealth, maxHealth);
+            currentShield = Math.Min(currentShield, maxHealth);
+
+            System.Console.WriteLine(currentHealth + " health / " + currentShield + " shield");
+
+            // Clear the lists and destroy child entities
+            healthSprites.Clear();
+            shieldSprites.Clear();
+            foreach (GameEntity child in children)
+            {
+                EntityManager.DestroyEntity(child);
+            }
+
+            float spriteYPosition = 1.6f;
+
             for (int i = 0; i < maxHealth; i++)
             {
-                HealthSprite healthSprite = new(healthbarTexture)
+                // Create and add health sprite
+                HealthSprite healthSprite = new HealthSprite(healthbarTexture)
                 {
                     name = "HealthSprite-" + i
                 };
                 healthSprites.Add(healthSprite);
 
-                Vector2 spritePos = new Vector2((-0.325f + 0.325f * i) * -flip, 1.65f);
+                // Position health sprite
+                Vector2 spritePos = new Vector2((-0.325f + 0.325f * i) * -flip, spriteYPosition);
                 EntityManager.SpawnEntity(healthSprite, spritePos, new Vector2(0.1875f, 0.1875f), this);
-            }
-            for (int i = 0; i < maxHealth; i++)
-            {
-                HealthSprite shieldSprite = new(healthbarTexture)
+
+                // Create and add shield sprite
+                HealthSprite shieldSprite = new HealthSprite(healthbarTexture)
                 {
                     name = "ShieldSprite-" + i
                 };
                 shieldSprite.sprite.FrameIndex = 1;
                 shieldSprites.Add(shieldSprite);
 
-                Vector2 spritePos = new Vector2((-0.325f + 0.325f * i) * -flip, 1.325f);
+                // Position shield sprite
+                spritePos = new Vector2((-0.325f + 0.325f * i) * -flip, spriteYPosition - .325f);
                 EntityManager.SpawnEntity(shieldSprite, spritePos, new Vector2(0.1875f, 0.1875f), this);
+
+                // Set health and shield sprites based on correct health and shield values
+                if (i < currentHealth)
+                {
+                    healthSprites[i].sprite.FrameIndex = 0;
+                }
+                else
+                {
+                    healthSprites[i].sprite.FrameIndex = 2;
+                }
+                if (i < currentShield)
+                {
+                    shieldSprites[i].isActive = true;
+                }
+                else
+                {
+                    shieldSprites[i].isActive = false;
+                }
             }
         }
-    }
-    public class HealthSprite : GameEntity
-    {
-        public Sprite sprite;
-        public HealthSprite(Texture2D texture2D)
+        public class HealthSprite : GameEntity
         {
-            sprite = new()
+            public Sprite sprite;
+            public HealthSprite(Texture2D texture2D)
             {
-                spriteSheet = texture2D,
-                spriteGrid = new Vector2(3, 1),
-                layer = 10
-            };
-            AddComponent<Sprite>(sprite);
+                sprite = new()
+                {
+                    spriteSheet = texture2D,
+                    spriteGrid = new Vector2(3, 1),
+                    layer = 10
+                };
+                AddComponent<Sprite>(sprite);
+            }
         }
     }
 }

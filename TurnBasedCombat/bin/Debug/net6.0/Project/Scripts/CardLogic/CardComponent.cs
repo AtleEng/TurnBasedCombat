@@ -16,7 +16,6 @@ namespace Engine
             }
             return false;
         }
-
         public void UseCard(Character user, List<Character> targets, ManaComponent manaComponent)
         {
             System.Console.WriteLine($"Used card: {cardStats.nameOfCard}");

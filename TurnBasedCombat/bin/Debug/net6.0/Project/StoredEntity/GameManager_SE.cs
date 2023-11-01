@@ -6,26 +6,30 @@ namespace Engine
 {
     public class GameManager : GameEntity
     {
-        public override void OnInnit()
+        public GameManager()
         {
             name = "GameManager";
-            EntityManager.SpawnEntity(new UIManager(), new Vector2(), Vector2.One, this);
+
+            UIManager uIManager = new UIManager();
+            EntityManager.SpawnEntity(uIManager, new Vector2(), Vector2.One, this);
 
             ManaBar manaBar = new()
             {
                 name = "ManaBar"
             };
-            EntityManager.SpawnEntity(manaBar, Vector2.Zero, Vector2.One, this);
+            EntityManager.SpawnEntity(manaBar, Vector2.Zero, Vector2.One, uIManager);
 
             ManaComponent manaComponent = new(manaBar);
 
             AddComponent<ManaComponent>(manaComponent);
+
 
             CardManager cardManager = new()
             {
                 manaComponent = manaComponent
             };
             CharacterManager characterManager = new CharacterManager(cardManager);
+
             AddComponent<CharacterManager>(characterManager);
             AddComponent<CardManager>(cardManager);
 

@@ -9,13 +9,11 @@ namespace Engine
     public class CharacterManager : Component, IScript
     {
         public CardManager cardManager;
-        public Dictionary<string, CharacterStats> allCharacters = new();
-        GameEntity characterHolder = new();
+        public Dictionary<int, CharacterStats> allCharacters = new();
+        public GameEntity characterHolder = new();
 
-        Character[] characters = new Character[4];
+        public Character[] characters = new Character[4];
         Vector2[] characterPosition = { new Vector2(-4, -1), new Vector2(0, -1), new Vector2(2, -1), new Vector2(4, -1) };
-
-        int selectedCharacter = -1;
 
         public CharacterManager(CardManager cardManager)
         {
@@ -25,13 +23,25 @@ namespace Engine
         {
             characterHolder.name = "Characters";
             EntityManager.SpawnEntity(characterHolder);
+            SpawInCharacterObject();
 
-            AddCharacter("Player", 39, 4, 0, new None());
+            AddCharacter(0, "Player", 39, 4, 0, new());
 
-            AddCharacter("Skeleton", 0, 3, 0, new None());
-
-            SpawInCharacterObjects();
+            AddCharacter(1, "Skeleton", 36, 3, 0, new List<EnemyBehaviour> { new Attack(1) });
+            AddCharacter(2, "The drunk man", 33, 4, 0, new List<EnemyBehaviour> { new Attack(1) });
+            AddCharacter(3, "Archer", 30, 2, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
+            AddCharacter(4, "Ninja", 27, 3, 0, new List<EnemyBehaviour> { new Attack(1), new Attack(2) });
+            AddCharacter(5, "Hammer man", 24, 3, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
+            AddCharacter(6, "Heavy Knight", 21, 4, 3, new List<EnemyBehaviour> { new Attack(2), new Attack(1) });
+            AddCharacter(7, "Warrior", 18, 3, 1, new List<EnemyBehaviour> { new Attack(2), new None() });
+            AddCharacter(8, "The ?", 15, 10, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
+            AddCharacter(9, "Healer", 12, 4, 0, new List<EnemyBehaviour> { new Attack(1), new Heal(1) });
+            AddCharacter(10, "Electro wizard", 9, 2, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
+            AddCharacter(11, "Nature wizard", 6, 2, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
+            AddCharacter(12, "Water wizard", 3, 2, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
+            AddCharacter(13, "Fire wizard", 0, 2, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
         }
+
         public override void Update(float delta)
         {
             if (cardManager.selectedCard >= 0) { SelectTargetLogic(); }
@@ -96,44 +106,61 @@ namespace Engine
 
                     }
                 }
-
-
             }
         }
-        void UpdateCharacterStats(int i)
+
+        public void SetCharacter(int posIndex, int characterIndex)
         {
-            //sprite
-            int spriteFrame = characters[i].characterStats.characterSpriteIndex;
-            characters[i].sprite.FrameIndex = spriteFrame;
+            if (posIndex >= characters.Length) { return; }
+            if (characterIndex < 0) { characters[posIndex].isActive = false; }
+
+            if (characters[posIndex].isActive)
+            {
+                System.Console.WriteLine($"Its allready a character at {posIndex}");
+                return;
+            }
+
+            CharacterStats currentStats = allCharacters[characterIndex];
+
+            //main
+            characters[posIndex].name = currentStats.nameOfCharacter;
+            characters[posIndex].isActive = true;
+
+            //health and shield
+            characters[posIndex].healthComponent.maxHealth = currentStats.startHealth;
+            characters[posIndex].healthComponent.currentHealth = currentStats.startHealth;
+            characters[posIndex].healthComponent.currentShield = currentStats.startShield;
+
+            characters[posIndex].healthComponent.UpdateUI();
+
+            //Sprite
+            int spriteFrame = currentStats.characterSpriteIndex;
+            characters[posIndex].sprite.FrameIndex = spriteFrame;
+            if (posIndex != 0) { characters[posIndex].sprite.isFlipedX = true; }
+
             //animation
             Animation animation = new(new int[] { spriteFrame, spriteFrame + 1, spriteFrame + 2 }, 0.2f, false);
-            characters[i].animator.AddAnimation("Attack", animation);
+            characters[posIndex].animator.animations.Clear();
+            characters[posIndex].animator.AddAnimation("Attack", animation);
 
+
+            Console.WriteLine($"Creating character: {characters[posIndex].name} at: {posIndex}");
         }
-        void SpawInCharacterObjects()
+        public void SpawInCharacterObject()
         {
-            for (int i = 0; i < characterPosition.Length; i++)
+            for (int i = 0; i < characters.Length; i++)
             {
-                Character character = new Character();
-                if (i == 0)
+                Character character = new Character()
                 {
-                    character.name = "Player";
-                    character.characterStats = allCharacters["Player"];
-                }
-                else
-                {
-                    character.name = $"Enemy{i}";
-                    character.sprite.isFlipedX = true;
-                    //character.animator.gameEntity.isActive = false;
-                }
+                    isActive = false,
+                };
                 characters[i] = character;
                 EntityManager.SpawnEntity(character, characterPosition[i], new Vector2(2, 2), characterHolder);
-                UpdateCharacterStats(i);
             }
         }
-        void AddCharacter(String name, int spriteIndex, int startHealth, int startShield, EnemyBehaviour enemyBehaviour)
+        void AddCharacter(int index, String name, int spriteIndex, int startHealth, int startShield, List<EnemyBehaviour> enemyBehaviour)
         {
-            allCharacters.Add(name, new CharacterStats(name, spriteIndex, startHealth, startShield, enemyBehaviour));
+            allCharacters.Add(index, new CharacterStats(name, spriteIndex, startHealth, startShield, enemyBehaviour));
         }
     }
 }

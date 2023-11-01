@@ -51,13 +51,8 @@ namespace CoreEngine
         static void Update(float delta)
         {
             activeGameEntities.Clear();
-            foreach (GameEntity gameEntity in gameEntities)
-            {
-                if (gameEntity.isActive == true)
-                {
-                    activeGameEntities.Add(gameEntity);
-                }
-            }
+
+            GetAllActiveEntities(currentScene);
             // Uppdate all the systems in the right order
             foreach (var system in systems.Values)
             {
@@ -89,13 +84,12 @@ namespace CoreEngine
             }
         }
 
-        public static void UpdateChildren(GameEntity parent)
+        static void UpdateChildren(GameEntity parent)
         {
             foreach (var child in parent.children)
             {
                 child.worldTransform.position = child.localTransform.position + parent.worldTransform.position;
                 child.worldTransform.size = child.localTransform.size * parent.worldTransform.size;
-                if (parent.isActive == false) { child.isActive = false; }
 
                 UpdateChildren(child);
             }
@@ -110,7 +104,7 @@ namespace CoreEngine
             systems.Remove(typeof(T));
         }
 
-        public static void PrintEntityTree(GameEntity entity, string layer = "", string space = "")
+        static void PrintEntityTree(GameEntity entity, string layer = "", string space = "")
         {
             Console.WriteLine($"{space}{layer}{entity.name} [{entity.PrintStats()}]");
 
@@ -128,6 +122,21 @@ namespace CoreEngine
                 foreach (var child in entity.children)
                 {
                     PrintEntityTree(child, $"{layer}>", $"{space} ");
+                }
+
+            }
+        }
+        static void GetAllActiveEntities(GameEntity entity)
+        {
+            if (entity.children.Count > 0)
+            {
+                foreach (var child in entity.children)
+                {
+                    if (child.isActive)
+                    {
+                        activeGameEntities.Add(child);
+                        GetAllActiveEntities(child);
+                    }
                 }
 
             }

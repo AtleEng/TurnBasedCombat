@@ -6,7 +6,7 @@ namespace Engine
 {
     public class UIManager : GameEntity
     {
-        public override void OnInnit()
+        public UIManager()
         {
             name = "UI";
 
