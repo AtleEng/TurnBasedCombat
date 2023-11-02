@@ -13,7 +13,7 @@ namespace Engine
         public GameEntity characterHolder = new();
 
         public Character[] characters = new Character[4];
-        Vector2[] characterPosition = { new Vector2(-4, -1), new Vector2(0, -1), new Vector2(2, -1), new Vector2(4, -1) };
+        Vector2[] characterPosition = { new Vector2(-4, -1f), new Vector2(0, -1f), new Vector2(2, -1f), new Vector2(4, -1f) };
 
         public CharacterManager(CardManager cardManager)
         {
@@ -121,6 +121,7 @@ namespace Engine
             }
 
             CharacterStats currentStats = allCharacters[characterIndex];
+            characters[posIndex].characterStats = currentStats;
 
             //main
             characters[posIndex].name = currentStats.nameOfCharacter;

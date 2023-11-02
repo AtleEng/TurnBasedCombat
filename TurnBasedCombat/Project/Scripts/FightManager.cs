@@ -22,15 +22,15 @@ namespace Engine
         {
             if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER))
             {
-                InnitBattle(new int[] { 0, 1, 3, 5 });
+                InnitBattle(new int[] { 0, 1, 3, 6 });
             }
 
             if (gameState == States.startPlayerTurn)
             {
                 OnPlayerTurn();
-                gameState = States.endOfPlayerTurn;
+                gameState = States.playerTurn;
             }
-            else if (gameState == States.endOfPlayerTurn)
+            else if (gameState == States.playerTurn)
             {
                 if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
                 {
@@ -39,19 +39,25 @@ namespace Engine
             }
             else if (gameState == States.startEnemyTurn)
             {
+                cardManager.DiscardHand();
                 OnEnemyTurn();
-                gameState = States.endOfEnemyTurn;
+                gameState = States.enemyTurn;
             }
-            else if (gameState == States.endOfEnemyTurn)
+            else if (gameState == States.enemyTurn)
             {
                 Character[] characters = characterManager.characters;
+                bool isntDone = false;
                 for (int i = 1; i < characters.Length; i++)
                 {
                     if (characters[i].animator.gameEntity.isActive == true &&
-                    characters[i].animator.isPlaying == false)
+                    characters[i].animator.isPlaying == true)
                     {
-                        gameState = States.startPlayerTurn;
+                        isntDone = true;
                     }
+                }
+                if (!isntDone)
+                {
+                    gameState = States.startPlayerTurn;
                 }
             }
         }
@@ -71,30 +77,25 @@ namespace Engine
         void OnPlayerTurn()
         {
             cardManager.manaComponent.AddMana(1);
-            cardManager.DiscardHand();
             cardManager.DrawFullHand();
         }
         void OnEnemyTurn()
         {
-            Character[] characters = characterManager.characters;
             Random random = new Random();
-            for (int i = 1; i < characters.Length; i++)
+            for (int i = 1; i < characterManager.characters.Length; i++)
             {
-                if (characters[i].animator.gameEntity.isActive == true &&
-                characters[i].characterStats.enemyBehaviour != null)
+                if (characterManager.characters[i].isActive == true && characterManager.characters[i].characterStats.enemyBehaviour.Count > 0)
                 {
-
-                    int randomIndex = random.Next(characters[i].characterStats.enemyBehaviour.Count);
-
-                    characters[i].animator.PlayAnimation("Attack");
-                    characters[i].characterStats.enemyBehaviour[randomIndex].Action(characters, i);
+                    int randomIndex = random.Next(characterManager.characters[i].characterStats.enemyBehaviour.Count);
+                    characterManager.characters[i].characterStats.enemyBehaviour[randomIndex].Action(characterManager.characters, i);
+                    characterManager.characters[i].animator.PlayAnimation("Attack");
                 }
             }
         }
 
         public enum States
         {
-            startPlayerTurn, endOfPlayerTurn, startEnemyTurn, endOfEnemyTurn
+            startPlayerTurn, playerTurn, startEnemyTurn, enemyTurn
         }
     }
 }
