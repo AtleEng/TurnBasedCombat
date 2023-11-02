@@ -7,7 +7,7 @@ namespace Engine
 {
     public abstract class EnemyBehaviour
     {
-        public virtual void Action(Character[] characters, int ownIndex) { }
+        public virtual void Action(Character[] characters, int ownIndex, CharacterManager characterManager) { }
     }
     public class None : EnemyBehaviour
     {
@@ -20,7 +20,7 @@ namespace Engine
         {
             this.dmg = dmg;
         }
-        public override void Action(Character[] characters, int ownIndex)
+        public override void Action(Character[] characters, int ownIndex, CharacterManager characterManager)
         {
             characters[0].healthComponent.TakeDMG(dmg, characters[ownIndex].healthComponent);
         }
@@ -32,7 +32,7 @@ namespace Engine
         {
             this.shieldApply = shieldApply;
         }
-        public override void Action(Character[] characters, int ownIndex)
+        public override void Action(Character[] characters, int ownIndex, CharacterManager characterManager)
         {
             characters[ownIndex].healthComponent.AddShield(shieldApply);
         }
@@ -44,11 +44,26 @@ namespace Engine
         {
             this.healAmount = shieldApply;
         }
-        public override void Action(Character[] characters, int ownIndex)
+        public override void Action(Character[] characters, int ownIndex, CharacterManager characterManager)
         {
             for (int i = 1; i < characters.Length; i++)
             {
                 characters[i].healthComponent.AddShield(healAmount);
+            }
+        }
+    }
+    public class SummonCharacter : EnemyBehaviour
+    {
+        public int characterIndex;
+        public SummonCharacter(int characterIndex)
+        {
+            this.characterIndex = characterIndex;
+        }
+        public override void Action(Character[] characters, int ownIndex, CharacterManager characterManager)
+        {
+            for (int i = 1; i < characters.Length; i++)
+            {
+                if (characterManager.SetCharacter(i, characterIndex)) { return; }
             }
         }
     }

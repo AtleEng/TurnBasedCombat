@@ -48,7 +48,7 @@ namespace Engine
                 healthSprites.Add(healthSprite);
 
                 // Position health sprite
-                Vector2 spritePos = new Vector2((-0.325f + 0.325f * i), spriteYPosition);
+                Vector2 spritePos = new Vector2(-0.325f + 0.325f * i, spriteYPosition);
                 EntityManager.SpawnEntity(healthSprite, spritePos, new Vector2(0.1875f, 0.1875f), this);
 
                 // Create and add shield sprite
@@ -60,7 +60,7 @@ namespace Engine
                 shieldSprites.Add(shieldSprite);
 
                 // Position shield sprite
-                spritePos = new Vector2((-0.325f + 0.325f * i), spriteYPosition - .325f);
+                spritePos = new Vector2(-0.325f + 0.325f * i, spriteYPosition - .325f);
                 EntityManager.SpawnEntity(shieldSprite, spritePos, new Vector2(0.1875f, 0.1875f), this);
 
                 // Set health and shield sprites based on correct health and shield values

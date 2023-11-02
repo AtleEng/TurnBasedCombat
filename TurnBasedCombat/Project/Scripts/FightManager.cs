@@ -22,7 +22,7 @@ namespace Engine
         {
             if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER))
             {
-                InnitBattle(new int[] { 0, 1, 3, 6 });
+                InnitBattle(new int[] { 0, 1, 3, 8 });
             }
 
             if (gameState == States.startPlayerTurn)
@@ -87,7 +87,7 @@ namespace Engine
                 if (characterManager.characters[i].isActive == true && characterManager.characters[i].characterStats.enemyBehaviour.Count > 0)
                 {
                     int randomIndex = random.Next(characterManager.characters[i].characterStats.enemyBehaviour.Count);
-                    characterManager.characters[i].characterStats.enemyBehaviour[randomIndex].Action(characterManager.characters, i);
+                    characterManager.characters[i].characterStats.enemyBehaviour[randomIndex].Action(characterManager.characters, i, characterManager);
                     characterManager.characters[i].animator.PlayAnimation("Attack");
                 }
             }

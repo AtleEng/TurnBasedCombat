@@ -34,7 +34,7 @@ namespace Engine
             AddCharacter(5, "Hammer man", 24, 3, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
             AddCharacter(6, "Heavy Knight", 21, 4, 3, new List<EnemyBehaviour> { new Attack(2), new Attack(1) });
             AddCharacter(7, "Warrior", 18, 3, 1, new List<EnemyBehaviour> { new Attack(2), new None() });
-            AddCharacter(8, "The ?", 15, 10, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
+            AddCharacter(8, "The ?", 15, 5, 5, new List<EnemyBehaviour> { new Attack(1), new Shielding(2), new SummonCharacter(1) });
             AddCharacter(9, "Healer", 12, 4, 0, new List<EnemyBehaviour> { new Attack(1), new Heal(1) });
             AddCharacter(10, "Electro wizard", 9, 2, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
             AddCharacter(11, "Nature wizard", 6, 2, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
@@ -109,16 +109,16 @@ namespace Engine
             }
         }
 
-        public void SetCharacter(int posIndex, int characterIndex)
+        public bool SetCharacter(int posIndex, int characterIndex)
         {
-            if (posIndex >= characters.Length) { return; }
-            if (characterIndex < 0) { characters[posIndex].isActive = false; }
-
+            if (posIndex >= characters.Length) { return false; }
             if (characters[posIndex].isActive)
             {
                 System.Console.WriteLine($"Its allready a character at {posIndex}");
-                return;
+                return false;
             }
+
+            if (characterIndex < 0) { characters[posIndex].isActive = false; }
 
             CharacterStats currentStats = allCharacters[characterIndex];
             characters[posIndex].characterStats = currentStats;
@@ -146,6 +146,7 @@ namespace Engine
 
 
             Console.WriteLine($"Creating character: {characters[posIndex].name} at: {posIndex}");
+            return true;
         }
         public void SpawInCharacterObject()
         {
@@ -159,7 +160,7 @@ namespace Engine
                 EntityManager.SpawnEntity(character, characterPosition[i], new Vector2(2, 2), characterHolder);
             }
         }
-        void AddCharacter(int index, String name, int spriteIndex, int startHealth, int startShield, List<EnemyBehaviour> enemyBehaviour)
+        void AddCharacter(int index, string name, int spriteIndex, int startHealth, int startShield, List<EnemyBehaviour> enemyBehaviour)
         {
             allCharacters.Add(index, new CharacterStats(name, spriteIndex, startHealth, startShield, enemyBehaviour));
         }
