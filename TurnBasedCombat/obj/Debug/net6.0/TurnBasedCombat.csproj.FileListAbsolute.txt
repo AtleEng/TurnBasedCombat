@@ -87,3 +87,4 @@ C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\De
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\Character_SE.cs
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\EnemyBehaviour.cs
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\FightManager.cs
+C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Sprites\Target.png

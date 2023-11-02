@@ -11,6 +11,8 @@ namespace Engine
         public HealthComponent healthComponent;
         public Sprite sprite;
         public Animator animator;
+
+        public GameEntity targetIcon;
         public Character()
         {
             HealthBar healthBar = new()
@@ -31,6 +33,16 @@ namespace Engine
             animator = new(sprite);
 
             AddComponent<Animator>(animator);
+
+            targetIcon = new();
+            targetIcon.isActive = false;
+            Sprite targetIconSprite = new Sprite
+            {
+                spriteSheet = Raylib.LoadTexture(@"Project\Sprites\Target.png"),
+                spriteGrid = new Vector2(1, 1)
+            };
+            targetIcon.AddComponent<Sprite>(targetIconSprite);
+            EntityManager.SpawnEntity(targetIcon, new Vector2(0, -1), new Vector2(0.5f, 0.5f), this);
         }
         public override void OnInnit()
         {

@@ -48,7 +48,7 @@ namespace Engine
         {
             for (int i = 1; i < characters.Length; i++)
             {
-                characters[i].healthComponent.AddShield(healAmount);
+                characters[i].healthComponent.Heal(healAmount);
             }
         }
     }

@@ -22,7 +22,7 @@ namespace Engine
         {
             if (Raylib.IsKeyPressed(KeyboardKey.KEY_ENTER))
             {
-                InnitBattle(new int[] { 0, 1, 3, 8 });
+                InnitBattle(new int[] { 0, 9, 3, 8 });
             }
 
             if (gameState == States.startPlayerTurn)

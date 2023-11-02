@@ -28,14 +28,14 @@ namespace Engine
             AddCharacter(0, "Player", 39, 4, 0, new());
 
             AddCharacter(1, "Skeleton", 36, 3, 0, new List<EnemyBehaviour> { new Attack(1) });
-            AddCharacter(2, "The drunk man", 33, 4, 0, new List<EnemyBehaviour> { new Attack(1) });
+            AddCharacter(2, "The drunk man", 33, 4, 2, new List<EnemyBehaviour> { new Attack(1) });
             AddCharacter(3, "Archer", 30, 2, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
-            AddCharacter(4, "Ninja", 27, 3, 0, new List<EnemyBehaviour> { new Attack(1), new Attack(2) });
+            AddCharacter(4, "Ninja", 27, 2, 0, new List<EnemyBehaviour> { new Attack(1), new Attack(2) });
             AddCharacter(5, "Hammer man", 24, 3, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
             AddCharacter(6, "Heavy Knight", 21, 4, 3, new List<EnemyBehaviour> { new Attack(2), new Attack(1) });
             AddCharacter(7, "Warrior", 18, 3, 1, new List<EnemyBehaviour> { new Attack(2), new None() });
-            AddCharacter(8, "The ?", 15, 5, 5, new List<EnemyBehaviour> { new Attack(1), new Shielding(2), new SummonCharacter(1) });
-            AddCharacter(9, "Healer", 12, 4, 0, new List<EnemyBehaviour> { new Attack(1), new Heal(1) });
+            AddCharacter(8, "The ?", 15, 5, 5, new List<EnemyBehaviour> { new Shielding(3), new SummonCharacter(1) });
+            AddCharacter(9, "Healer", 12, 4, 0, new List<EnemyBehaviour> { new Attack(1), new Heal(2) });
             AddCharacter(10, "Electro wizard", 9, 2, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
             AddCharacter(11, "Nature wizard", 6, 2, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
             AddCharacter(12, "Water wizard", 3, 2, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
@@ -82,16 +82,19 @@ namespace Engine
             }
             for (int i = 0; i < potensialTargets.Count; i++)
             {
+                potensialTargets[i].targetIcon.isActive = false;
                 if (Raylib.CheckCollisionPointRec
                 (mPos, new Rectangle(potensialTargets[i].worldTransform.position.X - potensialTargets[i].worldTransform.size.X / 2,
                 potensialTargets[i].worldTransform.position.Y - potensialTargets[i].worldTransform.size.Y / 2,
                 potensialTargets[i].worldTransform.size.X, potensialTargets[i].worldTransform.size.Y)))
                 {
+                    potensialTargets[i].targetIcon.isActive = true;
                     //klicked
                     if (Raylib.IsMouseButtonDown(0))
                     {
                         if (targetType == CardStats.TargetType.All)
                         {
+
                             cardManager.UseCard(cardManager.selectedCard, characters[0], potensialTargets);
                         }
                         else
@@ -103,7 +106,10 @@ namespace Engine
                             characters[0].animator.PlayAnimation("Attack");
                             cardManager.UseCard(cardManager.selectedCard, characters[0], targets);
                         }
-
+                        for (int j = 0; j < potensialTargets.Count; j++)
+                        {
+                            potensialTargets[j].targetIcon.isActive = false;
+                        }
                     }
                 }
             }
