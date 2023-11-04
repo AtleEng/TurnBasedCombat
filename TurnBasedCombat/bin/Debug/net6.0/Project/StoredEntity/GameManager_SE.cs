@@ -32,8 +32,11 @@ namespace Engine
 
             AddComponent<CharacterManager>(characterManager);
             AddComponent<CardManager>(cardManager);
+            FightManager fightManager = new FightManager(cardManager, characterManager);
+            AddComponent<FightManager>(fightManager);
 
-            AddComponent<FightManager>(new FightManager(cardManager, characterManager));
+            EntityManager.SpawnEntity(new QuitButton(), new Vector2(-6, -4.5f), new Vector2(2, 1));
+            EntityManager.SpawnEntity(new DoneButton(fightManager), new Vector2(5, 3.5f), new Vector2(2, 1));
         }
     }
 }

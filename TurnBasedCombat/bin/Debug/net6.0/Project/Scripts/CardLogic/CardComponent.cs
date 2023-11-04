@@ -25,7 +25,11 @@ namespace Engine
 
             user.healthComponent.TakeDMG(cardStats.healthCost, user.healthComponent);
 
-            //add effect
+            if (cardStats.effectCost != null)
+            {
+                System.Console.WriteLine($"Effected: {user.name}");
+                user.effectComponent.ApplyEffect(cardStats.effectCost);
+            }
 
             foreach (Character target in targets)
             {
@@ -33,9 +37,15 @@ namespace Engine
 
                 target.healthComponent.AddShield(cardStats.shieldApply);
 
-                target.healthComponent.TakeDMG(cardStats.dmgApply, user.healthComponent);
 
-                //add effect
+
+                target.healthComponent.TakeDMG((int)(cardStats.dmgApply * user.effectComponent.CalculateDMGModifier(target, user)), user.healthComponent);
+
+                if (cardStats.effectApply != null)
+                {
+                    System.Console.WriteLine($"Effected: {target.name}");
+                    target.effectComponent.ApplyEffect(cardStats.effectApply);
+                }
             }
         }
     }

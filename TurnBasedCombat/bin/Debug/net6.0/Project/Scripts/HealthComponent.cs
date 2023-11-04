@@ -38,15 +38,13 @@ namespace Engine
             {
                 currentHealth -= damage;
             }
+            Console.WriteLine($"{attacker.gameEntity.name} dealt {damage} dmg to {gameEntity.name}");
             if (currentHealth <= 0)
             {
                 currentHealth = 0;
                 Die(attacker);
             }
-            else
-            {
-                Console.WriteLine($"{attacker.gameEntity.name} dealt {damage} dmg to {gameEntity.name}");
-            }
+
             UpdateUI();
         }
         public void Heal(int healAmount)

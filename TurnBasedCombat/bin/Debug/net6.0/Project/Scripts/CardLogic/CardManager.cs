@@ -24,46 +24,37 @@ namespace Engine
             EntityManager.SpawnEntity(cardHolder);
 
             AddCard("Dagger", 0, 1, 0, 0, null, 0, 2, 0, null, CardStats.TargetType.Melee);
-            AddCard("PosionDagger", 1, 2, 0, 0, null, 0, 2, 0, null, CardStats.TargetType.Melee);
-            AddCard("Waterbolt", 2, 1, 0, 0, null, 0, 1, 0, null, CardStats.TargetType.Range);
+            AddCard("PosionDagger", 1, 2, 0, 0, null, 0, 2, 0, new WeaknessEffect(2), CardStats.TargetType.Melee);
+            AddCard("Waterbolt", 2, 1, 0, 0, null, 0, 1, 0, new WaterEffect(1), CardStats.TargetType.Range);
             AddCard("Mace", 3, 0, 0, 4, null, 0, 2, 0, null, CardStats.TargetType.Melee);
-            AddCard("BallOfPoison", 4, 2, 0, 0, null, 0, 1, 0, null, CardStats.TargetType.Range);
-            AddCard("Rain", 5, 1, 0, 0, null, 0, 0, 0, null, CardStats.TargetType.All);
+            AddCard("BallOfPoison", 4, 2, 0, 0, null, 0, 1, 0, new WeaknessEffect(1), CardStats.TargetType.Range);
+            AddCard("Rain", 5, 0, 0, 0, new WaterEffect(1), 0, 0, 0, new WaterEffect(1), CardStats.TargetType.All);
             AddCard("HeavyAxe", 6, 2, 0, 0, null, 0, 4, 0, null, CardStats.TargetType.Melee);
-            AddCard("ChainLighting", 7, 2, 0, 0, null, 0, 1, 0, null, CardStats.TargetType.All);
-            AddCard("Tsunami", 8, 4, 0, 0, null, 0, 2, 0, null, CardStats.TargetType.All);
+            AddCard("ChainLighting", 7, 2, 0, 0, null, 0, 1, 0, new StunEffect(1), CardStats.TargetType.All);
+            AddCard("Tsunami", 8, 4, 0, 0, null, 0, 3, 0, new WaterEffect(1), CardStats.TargetType.All);
             AddCard("BloodDagger", 9, 0, 1, 0, null, 0, 4, 0, null, CardStats.TargetType.Melee);
-            AddCard("LightingStrike", 10, 1, 0, 0, null, 0, 1, 0, null, CardStats.TargetType.Range);
-            AddCard("Fireball", 11, 3, 0, 0, null, 0, 2, 0, null, CardStats.TargetType.Range);
+            AddCard("LightingStrike", 10, 1, 0, 0, null, 0, 1, 0, new StunEffect(1), CardStats.TargetType.Range);
+            AddCard("Fireball", 11, 3, 0, 0, null, 0, 2, 0, new FireEffect(2), CardStats.TargetType.Range);
             AddCard("Bow", 12, 1, 0, 0, null, 0, 1, 0, null, CardStats.TargetType.Range);
-            AddCard("Bersek", 13, 0, 1, 0, null, 0, 0, 0, null, CardStats.TargetType.Self);
-            AddCard("BurnTheEarth", 14, 1, 0, 0, null, 0, 0, 0, null, CardStats.TargetType.All);
+            AddCard("Bersek", 13, 0, 1, 0, null, 0, 0, 0, new RageEffect(3), CardStats.TargetType.Self);
+            AddCard("BurnTheEarth", 14, 1, 0, 0, null, 0, 0, 0, new FireEffect(1), CardStats.TargetType.All);
             AddCard("Bomb", 15, 2, 0, 0, null, 0, 1, 0, null, CardStats.TargetType.All);
-            AddCard("Boots", 16, 1, 0, 0, null, 0, 0, 0, null, CardStats.TargetType.Self);
-            AddCard("Torch", 17, 1, 0, 0, null, 0, 1, 0, null, CardStats.TargetType.Melee);
+            AddCard("Boots", 16, 1, 0, 0, null, 0, 0, 0, new DodgeEffect(2), CardStats.TargetType.Self);
+            AddCard("Torch", 17, 1, 0, 0, null, 0, 1, 0, new FireEffect(2), CardStats.TargetType.Melee);
             AddCard("ArrowRain", 18, 2, 0, 0, null, 0, 2, 0, null, CardStats.TargetType.Range);
-            AddCard("MagicRing", 19, 1, 0, 0, null, 0, 0, 0, null, CardStats.TargetType.Self);
+            AddCard("MagicRing", 19, 1, 0, 0, null, 0, 0, 0, new ManaEffect(2), CardStats.TargetType.Self);
             AddCard("Shield", 20, 1, 0, 0, null, 0, 0, 1, null, CardStats.TargetType.Self);
-            AddCard("Drinking", 21, 0, 0, 0, null, 0, 0, 0, null, CardStats.TargetType.Self);
-            AddCard("HolyProtection", 22, 0, 0, 0, null, 0, 0, 0, null, CardStats.TargetType.Self);
+            AddCard("Drinking", 21, 0, 0, 0, null, 0, 0, 0, new DrunkEffect(2), CardStats.TargetType.Self);
+            AddCard("HolyProtection", 22, 2, 0, 0, null, 0, 0, 2, new DodgeEffect(1), CardStats.TargetType.Self);
             AddCard("LightArmor", 23, 2, 0, 0, null, 0, 0, 2, null, CardStats.TargetType.Self);
-            AddCard("PartyTime", 24, 0, 0, 0, null, 0, 0, 0, null, CardStats.TargetType.All);
+            AddCard("PartyTime", 24, 0, 0, 0, new DrunkEffect(2), 0, 0, 0, new DrunkEffect(2), CardStats.TargetType.All);
             AddCard("ManaPotion", 25, 0, 0, 0, null, 2, 0, 0, null, CardStats.TargetType.Self);
             AddCard("HeavyArmor", 26, 3, 0, 0, null, 0, 0, 4, null, CardStats.TargetType.Self);
 
-            cardsInDrawpile.Add(allCards["Dagger"]);
-            cardsInDrawpile.Add(allCards["Dagger"]);
-            cardsInDrawpile.Add(allCards["Mace"]);
-            cardsInDrawpile.Add(allCards["ManaPotion"]);
-            cardsInDrawpile.Add(allCards["ManaPotion"]);
-            cardsInDrawpile.Add(allCards["Shield"]);
-            cardsInDrawpile.Add(allCards["Shield"]);
-            cardsInDrawpile.Add(allCards["Bow"]);
-            cardsInDrawpile.Add(allCards["Fireball"]);
-            cardsInDrawpile.Add(allCards["Fireball"]);
-            cardsInDrawpile.Add(allCards["BloodDagger"]);
-            cardsInDrawpile.Add(allCards["BurnTheEarth"]);
-            cardsInDrawpile.Add(allCards["Bomb"]);
+            foreach (CardStats card in allCards.Values)
+            {
+                cardsInDiscardPile.Add(card);
+            }
 
             SpawInCardObjects();
         }
@@ -97,8 +88,6 @@ namespace Engine
                     if (Raylib.IsMouseButtonDown(0))
                     {
                         selectedCard = i;
-
-                        //UseCard(i);
                     }
                 }
                 if (selectedCard >= 0)

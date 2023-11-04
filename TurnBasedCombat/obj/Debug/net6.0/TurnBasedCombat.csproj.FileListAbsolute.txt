@@ -88,3 +88,9 @@ C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\De
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\EnemyBehaviour.cs
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\FightManager.cs
 C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Sprites\Target.png
+C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\SimpleNumberDisplay_SE.cs
+C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\ImageDisplay_SE.cs
+C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Scripts\EffectComponent.cs
+C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\Sprites\Buttons.png
+C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\QuitButton_SE.cs
+C:\Users\atle.engelbrektsson\Documents\C#\TurnBasedCombat\TurnBasedCombat\bin\Debug\net6.0\Project\StoredEntity\DoneButton_SE.cs

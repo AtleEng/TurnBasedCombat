@@ -27,41 +27,40 @@ namespace Engine
 
             AddCharacter(0, "Player", 39, 4, 0, new());
 
-            AddCharacter(1, "Skeleton", 36, 2, 0, new List<EnemyBehaviour> { new Attack(1) });
-            AddCharacter(2, "The drunk man", 33, 4, 0, new List<EnemyBehaviour> { new Attack(1) });
-            AddCharacter(3, "Archer", 30, 2, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
+            AddCharacter(1, "Skeleton", 36, 3, 0, new List<EnemyBehaviour> { new Attack(1) });
+            AddCharacter(2, "The drunk man", 33, 4, 2, new List<EnemyBehaviour> { new Attack(1) });
+            AddCharacter(3, "Archer", 30, 2, 0, new List<EnemyBehaviour> { new Attack(2), new NoBehaviour() });
             AddCharacter(4, "Ninja", 27, 2, 0, new List<EnemyBehaviour> { new Attack(1), new Attack(2) });
-            AddCharacter(5, "Hammer man", 24, 3, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
+            AddCharacter(5, "Hammer man", 24, 3, 0, new List<EnemyBehaviour> { new Attack(2), new NoBehaviour() });
             AddCharacter(6, "Heavy Knight", 21, 4, 3, new List<EnemyBehaviour> { new Attack(2), new Attack(1) });
-            AddCharacter(7, "Warrior", 18, 3, 1, new List<EnemyBehaviour> { new Attack(2), new None() });
-            AddCharacter(8, "The ?", 15, 5, 5, new List<EnemyBehaviour> { new Shielding(2), new SummonCharacter(1) });
+            AddCharacter(7, "Warrior", 18, 3, 1, new List<EnemyBehaviour> { new Attack(2), new NoBehaviour() });
+            AddCharacter(8, "The ?", 15, 5, 5, new List<EnemyBehaviour> { new Shielding(3), new SummonCharacter(1) });
             AddCharacter(9, "Healer", 12, 4, 0, new List<EnemyBehaviour> { new Attack(1), new Heal(2) });
-            AddCharacter(10, "Electro wizard", 9, 2, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
-            AddCharacter(11, "Nature wizard", 6, 2, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
-            AddCharacter(12, "Water wizard", 3, 2, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
-            AddCharacter(13, "Fire wizard", 0, 2, 0, new List<EnemyBehaviour> { new Attack(2), new None() });
+            AddCharacter(10, "Electro wizard", 9, 2, 0, new List<EnemyBehaviour> { new Attack(2), new NoBehaviour() });
+            AddCharacter(11, "Nature wizard", 6, 2, 0, new List<EnemyBehaviour> { new Attack(2), new NoBehaviour() });
+            AddCharacter(12, "Water wizard", 3, 2, 0, new List<EnemyBehaviour> { new Attack(2), new NoBehaviour() });
+            AddCharacter(13, "Fire wizard", 0, 2, 0, new List<EnemyBehaviour> { new Attack(2), new NoBehaviour() });
         }
 
         public override void Update(float delta)
         {
             if (cardManager.selectedCard >= 0) { SelectTargetLogic(); }
         }
-        void SelectTargetLogic()
+        List<Character> FindPotensialTargets(CardStats.TargetType targetType)
         {
             List<Character> potensialTargets = new();
-            Vector2 mPos = WorldSpace.GetVirtualMousePos();
-
-            CardStats.TargetType targetType = cardManager.cardsInHand[cardManager.selectedCard].cardComponent.cardStats.targetType;
 
             for (int i = 0; i < characters.Length; i++)
             {
+                characters[i].targetIcon.isActive = false;
                 if (characters[i].isActive == true)
                 {
                     if (targetType == CardStats.TargetType.Melee)
                     {
-                        if (i > 0 && potensialTargets.Count == 0)
+                        if (i > 0)
                         {
                             potensialTargets.Add(characters[i]);
+                            return potensialTargets;
                         }
                     }
                     else if (targetType == CardStats.TargetType.Self)
@@ -69,6 +68,7 @@ namespace Engine
                         if (i == 0)
                         {
                             potensialTargets.Add(characters[i]);
+                            return potensialTargets;
                         }
                     }
                     else if (targetType == CardStats.TargetType.Range || targetType == CardStats.TargetType.All)
@@ -80,22 +80,41 @@ namespace Engine
                     }
                 }
             }
+            return potensialTargets;
+        }
+        void SelectTargetLogic()
+        {
+            CardStats.TargetType targetType = cardManager.cardsInHand[cardManager.selectedCard].cardComponent.cardStats.targetType;
+
+            Vector2 mPos = WorldSpace.GetVirtualMousePos();
+            List<Character> potensialTargets = FindPotensialTargets(targetType);
+            bool isDone = false;
+
             for (int i = 0; i < potensialTargets.Count; i++)
             {
-                potensialTargets[i].targetIcon.isActive = false;
                 if (Raylib.CheckCollisionPointRec
                 (mPos, new Rectangle(potensialTargets[i].worldTransform.position.X - potensialTargets[i].worldTransform.size.X / 2,
                 potensialTargets[i].worldTransform.position.Y - potensialTargets[i].worldTransform.size.Y / 2,
                 potensialTargets[i].worldTransform.size.X, potensialTargets[i].worldTransform.size.Y)))
                 {
-                    potensialTargets[i].targetIcon.isActive = true;
+                    if (targetType == CardStats.TargetType.All)
+                    {
+                        for (int j = 0; j < potensialTargets.Count; j++)
+                        {
+                            potensialTargets[j].targetIcon.isActive = true;
+                        }
+                    }
+                    else
+                    {
+                        potensialTargets[i].targetIcon.isActive = true;
+                    }
                     //klicked
                     if (Raylib.IsMouseButtonDown(0))
                     {
-                        if (targetType == CardStats.TargetType.All)
+                        if (targetType == CardStats.TargetType.All && !isDone)
                         {
-
                             cardManager.UseCard(cardManager.selectedCard, characters[0], potensialTargets);
+                            isDone = true;
                         }
                         else
                         {
@@ -114,7 +133,6 @@ namespace Engine
                 }
             }
         }
-
         public bool SetCharacter(int posIndex, int characterIndex)
         {
             if (posIndex >= characters.Length) { return false; }
@@ -125,7 +143,7 @@ namespace Engine
             }
 
             if (characterIndex < 0) { characters[posIndex].isActive = false; }
-
+            characters[posIndex].effectComponent.RemoveEffect(10);
             CharacterStats currentStats = allCharacters[characterIndex];
             characters[posIndex].characterStats = currentStats;
 
